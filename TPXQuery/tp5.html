@@ -1,0 +1,176 @@
+<!--?xml version="1.0" encoding="iso-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <link href="tp5_fichiers/cours.css" rel="stylesheet" type="text/css">
+  <title>cours BDA</title>
+
+
+</head>
+
+<body>
+<h1>TP XQuery</h1>
+
+<p>Ce TP est à réaliser avec BaseX sous linux.</p>
+
+<h2>Exercice 1</h2>
+
+<p>Les requêtes sont exprimées sur le document <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/movies_refs.xml"><code>movies_refs.xml</code></a>,
+</p>
+
+<h3>Question 1</h3>
+
+<p>Ecrire une requête qui permet d'obtenir des informations sur Sofia Coppola :
+son année de naissance, ses films, et pour chaque film le titre et l'année de sortie.</p>
+
+<p>Le résultat de cette requête sera :</p>
+
+<pre>&lt;artist&gt;
+  &lt;last_name&gt;Coppola&lt;/last_name&gt;
+  &lt;first_name&gt;Sofia&lt;/first_name&gt;
+  &lt;birth_date&gt;1971&lt;/birth_date&gt;
+  &lt;movie&gt;
+    &lt;title&gt;Lost in Translation&lt;/title&gt;
+    &lt;year&gt;2003&lt;/year&gt;
+  &lt;/movie&gt;
+  &lt;movie&gt;
+    &lt;title&gt;Marie Antoinette&lt;/title&gt;
+    &lt;year&gt;2006&lt;/year&gt;
+  &lt;/movie&gt;
+&lt;/artist&gt;
+</pre>
+
+<h3>Question 2</h3>
+
+<p>Reprendre la question précédente, mais en obtenant pour résultat une <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/sortie.html">page html</a>.
+Pour simplifier, la sortie ne contiendra pas d'information d'espace de noms,
+ni de codage de caractère, de version, ...</p>
+
+<p><em>Nous verrons un peu plus tard des exemples de requêtes qui génèrent du XHTML
+avec un en-tête correcte, et prise en compte des espaces de noms.</em></p>
+
+<h3>Question 3</h3>
+
+<p>Ecrire une requête qui donne chaque réalisateur et le nombre de films qu'il a fait.</p>
+
+<p>Le résultat de la requête sera : </p>
+
+<pre>&lt;directors&gt;
+  &lt;director&gt;
+    &lt;last_name&gt;Cronenberg&lt;/last_name&gt;
+    &lt;first_name&gt;David&lt;/first_name&gt;
+    &lt;birth_date&gt;1943&lt;/birth_date&gt;
+    &lt;nb_movies&gt;1&lt;/nb_movies&gt;
+  &lt;/director&gt;
+  ...
+  &lt;director&gt;
+    &lt;last_name&gt;Coppola&lt;/last_name&gt;
+    &lt;first_name&gt;Sofia&lt;/first_name&gt;
+    &lt;birth_date&gt;1971&lt;/birth_date&gt;
+    &lt;nb_movies&gt;2&lt;/nb_movies&gt;
+  &lt;/director&gt;
+  &lt;director&gt;
+    &lt;last_name&gt;Raimi&lt;/last_name&gt;
+    &lt;first_name&gt;Sam&lt;/first_name&gt;
+    &lt;birth_date&gt;1959&lt;/birth_date&gt;
+    &lt;nb_movies&gt;1&lt;/nb_movies&gt;
+  &lt;/director&gt;
+&lt;/directors&gt;
+</pre>
+
+<h3>Question 4</h3>
+
+<p>Ecrire une requête qui permet de restructurer les informations
+présentes dans le document, en supprimant les références (donc tous les attributs). Dans le document résultat,
+ on ne conserve pas l'information <code>country</code> et on regroupe tous les acteurs d'un
+ film sous un élément <code>actors</code>.</p>
+
+<p>Le document en sortie aura pour schéma :</p>
+
+<img alt="schema du résultat" src="tp5_fichiers/schemaMovies.png" height="500px">
+
+<h2>Exercice 2</h2>
+
+<p>On utilise le document <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/maisons.xml">maisons.xml</a> en entrée.</p>
+
+<h3>Question</h3>
+<p>Donner une requête qui permet de calculer la surface totale de chaque maison. Quand deux éléments sont imbriqués,
+alors seule la surface de l'élément externe est comptée. Par exemple, pour 
+<code>&lt;chambre surface-m2="28" fenetre="3"&gt;&lt;alcove surface-m2="8"/&gt;&lt;/chambre&gt;</code>,
+on n'utilise que la surface de la chambre.</p>
+
+<p>Le résultat de la requête sera :</p>
+
+<pre>&lt;maison id="1"&gt;
+  &lt;surface-totale&gt;125&lt;/surface-totale&gt;
+&lt;/maison&gt;
+&lt;maison id="2"&gt;
+  &lt;surface-totale&gt;28&lt;/surface-totale&gt;
+&lt;/maison&gt;
+&lt;maison id="3"&gt;
+  &lt;surface-totale&gt;57.5&lt;/surface-totale&gt;
+&lt;/maison&gt;
+</pre>
+
+<h2>Exercice 3</h2>
+
+<p>On utilise le document en entrée <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/bookmarks.xml">bookmarks.xml</a></p>
+
+<h3>Question 1</h3>
+
+<p>Définir une fonction qui transforme 1 noeud bookmark passé en paramètre en 1 noeud élément <code>div</code>,tel que</p>
+
+<ul>
+<li>Le titre et l'url sont mis dans un premier paragraphe (élément <code>p</code>) qui contient un lien (élément <code>a</code>)
+ayant pour référence l'url et pour contenu textuel, le titre s'il existe et à défaut l'url.</li>
+<li>Si la description existe elle est mise dans un second paragraphe</li>
+</ul>
+
+<p>Exemple :</p>
+
+<pre>&lt;bookmark url="http://www.linux.org"&gt;
+  &lt;title&gt;Linux Online&lt;/title&gt;
+  &lt;description&gt;Site de référence sur Linux&lt;/description&gt;
+&lt;/bookmark&gt;
+
+sera transformé en 
+
+&lt;div&gt;
+  &lt;p&gt;
+    &lt;a href="http://www.linux.org"&gt;Linux Online&lt;/a&gt;
+  &lt;/p&gt;
+  &lt;p&gt;Site de référence sur Linux&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+
+<h3>Question 2</h3>
+
+<p>Définir une fonction qui transforme 1 noeud categorie passé en paramètre en 1 noeud <code>div</code>,tel que</p>
+
+<ul>
+<li>Le nom de la catégorie apparaît en titre <code>h3</code></li>
+<li>La description est rangée dans un paragraphe</li>
+<li>Puis, on affiche récursivement les sous-catégories et les bookmarks (cf question précédente)</li>
+</ul>
+
+<h3>Question 3</h3>
+
+<p>Définir la requête principale qui permet d'obtenir <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/bm.html">ce résultat</a></p>
+
+<h2>Exercice 4</h2>
+
+<p><em>Extrait de l'examen de décembre 2012</em></p>
+
+<p>Dans cet exercice, on pose les requête sur le document <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/genealogie.xml">genealogie.xml</a></p>
+
+<p>Ecrire une fonction XQuery <code>local:genealogie_desc</code> qui prend en paramètre un élément <code>personne</code>, et qui renvoie un élément <code>personne</code> 
+contenant la généalogie descendante de la personne passée en paramètre. 
+Par exemple, l'élément <code>personne</code> contenant <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/descendantsVB.xml">tous les descendants de Vincent BOUREL</a>,
+est obtenu par appel de la fonction :
+<code>local:genealogie_desc(//personne[nom="BOUREL" and prenom="Vincent"])</code>
+
+
+
+
+</p></body></html>

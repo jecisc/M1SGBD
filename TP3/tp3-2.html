@@ -1,0 +1,150 @@
+<!--?xml version="1.0" encoding="iso-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <link href="tp3-2_fichiers/cours.css" rel="stylesheet" type="text/css">
+  <title>cours BDA</title>
+
+
+</head>
+
+<body>
+<h1>TP Oracle et SQL/XML</h1>
+
+<h2>Partie 2 : Stockage et manipulation de XML</h2>
+
+<p>Certaines requêtes sous SQLDeveloper donneront juste un affichage <code>XMLType</code>.
+Pour un affichage plus clair, utiliser SQLPlus. Pour cela, dans un terminal taper <code>rlwrap sqlplus</code>.
+Votre nom d'utilisateur est <code>Mon_nom@filora</code>.</p>
+
+<p>Pour afficher les colonnes/lignes de types XMLType sans qu'elles soient tronquées, modifier les paramètres par défaut
+d'affichage en SQLPlus :</p>
+<pre>set long 5000
+set pagesize 300
+</pre>
+
+<h3>Binary XML</h3>
+
+<h4>Question 1</h4>
+
+<p>Définir une table <code>TXML</code> de la façon suivante :</p>
+
+<pre>create table TXML of XMLType 
+XMLType store as Binary XML;
+</pre>
+
+<p>Insérer les pays dans cette table, avec pour chaque pays les noms de ses villes, sous la forme de données XML :</p>
+
+<pre>&lt;pays ID="1"&gt;&lt;nom&gt;france&lt;/nom&gt;&lt;ville&gt;lille&lt;/ville&gt;&lt;ville&gt;marseille&lt;/ville&gt;&lt;ville&gt;bordeaux&lt;/ville&gt;&lt;ville&gt;paris&lt;/ville&gt;&lt;ville&gt;lyon&lt;/ville&gt;&lt;/pays&gt;
+&lt;pays ID="2"&gt;&lt;nom&gt;cameroun&lt;/nom&gt;&lt;ville&gt;yaoundé&lt;/ville&gt;&lt;ville&gt;garoua&lt;/ville&gt;&lt;ville&gt;douala&lt;/ville&gt;&lt;ville&gt;bafoussam&lt;/ville&gt;&lt;/pays&gt;
+...
+13 lignes
+</pre>
+
+<p>Vérifier le contenu de la table <code>TXML</code></p>
+
+<h4>Question 2</h4>
+
+<p>Ecrire une requête permettant d'obtenir toutes les villes</p>
+
+<p>Vous chercherez deux solutions :</p>
+
+<ol>
+<li>comme on a 13 pays, on pose une requête qui donne 13 lignes résultats, chaque ligne contenant une forêt XMLType</li>
+<li>Poser une requête donnant 60 lignes résultats, 1 ligne pour chaque ville. Pour cela, il faut parcourir
+la liste des villes de chaque pays. Utiliser la fonction <code>XMLsequence</code> pour transformer une forêt XMLType en tableau d'arbres XMLType,
+puis regarder en relationnel objet comment parcourir une collection imbriquée.
+Regarder la <a href="http://docs.oracle.com/cd/B28359_01/appdev.111/b28369/xdb13gen.htm#sthref1273">documentation Oracle</a> concernant <code>XMLSequence</code>.
+</li>
+</ol>
+
+<h4>Question 3</h4>
+
+<p>Définir une requête sur TXML permettant de créer un seul document XML de racine <code>les_villes</code> et
+contenant toutes les villes en sous-éléments.</p>
+
+<h4>Question 4</h4>
+
+<p>Définir une requête avec <code>updateXML</code> qui permet de mettre tous les noms de pays en majuscules</p>
+
+<p>Il existe d'autres fonctions SQL pour modifier un XMLType : <code>appendChildXML</code>, <code>insertChildXML</code>, <code>insertChildXMLbefore</code>, 
+<code>insertChildXMLafter</code>, <code>deleteXML</code>, ...</p>
+<p>Voir <a href="http://docs.oracle.com/cd/B28359_01/appdev.111/b28369/xdb04cre.htm#i1032611">La documentation Oracle</a> pour plus de détails.</p>
+
+<h4>Question 5</h4>
+
+<p>Ajouter une ville française - par exemple Rennes - dans les données.</p>
+
+<!--
+<h3>Stockage en relationel-objet</h3>
+
+<p>On veut maintenant stocker des documents qui sont valides pour le schéma <a href="po.xsd">purchaseOrder</a>,
+schéma exemple fourni par le W3C.</p>
+
+<h4>Question 6</h4>
+<p>Sous SQLDeveloper, définir un nouveau schéma grâce au navigateur d'objets : clic droit, choisir Nouveau schéma.</p>
+
+<p>Regarder les types et les tables qui ont été créés automatiquement, faire le lien avec le schéma.</p>
+
+<h4>Question 7</h4>
+
+<p>Insérer 2 lignes, correspondant aux 2 documents suivants : 
+<a href="po.xml">po.xml</a> et <a href="po2.xml">po2.xml</a>
+</p>
+
+<pre>
+insert into "purchaseOrder580_TAB" values (XMLTYPE.createXML('&lt;?xml version="1.0"?&gt;
+&lt;purchaseOrder orderDate="1999-10-20"&gt; ...
+&lt;/purchaseOrder&gt;'));
+</pre>
+
+<h4>Question 8</h4>
+
+<p>Essayer d'insérer une ligne où l'attribut country vaut <code>"France"</code>. Expliquer la réponse du serveur.</p>
+-->
+
+<h3>Vue XML sur des tables relationnelles</h3>
+
+<h4>Question 6</h4>
+
+<p>Définir une vue XML sur une table relationnelle :</p>
+
+<pre>-- la clause with object identifier  est obligatoire
+create or replace view pays_xml of xmltype
+with object id (extract(OBJECT_VALUE,'/pays/@id').getnumberval())
+as
+select xmlelement("pays",
+xmlattributes(p.ref_pays as id, count(*) as nb_villes),
+p.nom
+)
+from pays p
+join ville v on p.ref_pays=v.ref_pays
+group by p.ref_pays, p.nom 
+</pre>
+
+<h4>Question 7</h4>
+
+<p>Poser une requête sur la vue pays_xml permettant d'obtenir les noms des pays et le nombre de villes :</p>
+
+<pre>états unis	11
+france	5
+royaume uni	5
+canada	4
+turquie	3
+cameroun	4
+mexique	5
+chine	3
+japon	5
+allemagne	5
+maroc	4
+senegal	2
+espagne	4
+</pre>
+
+<hr class="delimiteur">
+
+
+
+
+</body></html>
