@@ -1,0 +1,129 @@
+<personne id="16" sexe="H">
+  <nom>BOUREL</nom>
+  <prenom>Vincent</prenom>
+  <deces>1677</deces>
+  <enfants>
+    <personne id="18" sexe="H">
+      <nom>BOUREL</nom>
+      <prenom>Guillaume</prenom>
+      <naissance>1638</naissance>
+      <deces>1698</deces>
+      <enfants>
+        <personne id="21" sexe="H">
+          <nom>BOUREL</nom>
+          <prenom>Guillaume</prenom>
+          <naissance>1669</naissance>
+          <deces>1669</deces>
+          <enfants/>
+        </personne>
+        <personne id="22" sexe="H">
+          <nom>BOUREL</nom>
+          <prenom>Jean</prenom>
+          <naissance>1678</naissance>
+          <enfants>
+            <personne id="26" sexe="H">
+              <nom>BOUREL</nom>
+              <prenom>Auguste</prenom>
+              <naissance>1728</naissance>
+              <deces>1752</deces>
+              <enfants/>
+            </personne>
+          </enfants>
+        </personne>
+        <personne id="23" sexe="H">
+          <nom>BOUREL</nom>
+          <prenom>Guillaume</prenom>
+          <naissance>1680</naissance>
+          <deces>1743</deces>
+          <enfants>
+            <personne id="25" sexe="F">
+              <nom>BOUREL</nom>
+              <prenom>Marie</prenom>
+              <naissance>1691</naissance>
+              <deces>1745</deces>
+              <enfants>
+                <personne id="5" sexe="F">
+                  <nom>CORNEC</nom>
+                  <prenom>Marie</prenom>
+                  <naissance>1710</naissance>
+                  <deces>1783</deces>
+                  <enfants>
+                    <personne id="6" sexe="F">
+                      <nom>LUCAS</nom>
+                      <prenom>Marie</prenom>
+                      <naissance>1736</naissance>
+                      <deces>1818</deces>
+                      <enfants>
+                        <personne id="7" sexe="H">
+                          <nom>OMNES</nom>
+                          <prenom>Yves</prenom>
+                          <naissance>1780</naissance>
+                          <deces>1818</deces>
+                          <enfants>
+                            <personne id="15" sexe="H">
+                              <nom>OMNES</nom>
+                              <prenom>Guillaume</prenom>
+                              <naissance>1815</naissance>
+                              <deces>1856</deces>
+                              <enfants/>
+                            </personne>
+                            <personne id="151" sexe="F">
+                              <nom>OMNES</nom>
+                              <prenom>Sophie</prenom>
+                              <naissance>1810</naissance>
+                              <deces>1862</deces>
+                              <enfants/>
+                            </personne>
+                            <personne id="152" sexe="F">
+                              <nom>OMNES</nom>
+                              <prenom>Françoise</prenom>
+                              <naissance>1812</naissance>
+                              <deces>1871</deces>
+                              <enfants/>
+                            </personne>
+                          </enfants>
+                        </personne>
+                        <personne id="71" sexe="H">
+                          <nom>OMNES</nom>
+                          <prenom>Jean</prenom>
+                          <naissance>1761</naissance>
+                          <deces>1820</deces>
+                          <enfants/>
+                        </personne>
+                        <personne id="72" sexe="F">
+                          <nom>OMNES</nom>
+                          <prenom>Madeleine</prenom>
+                          <naissance>1763</naissance>
+                          <deces>1815</deces>
+                          <enfants/>
+                        </personne>
+                      </enfants>
+                    </personne>
+                  </enfants>
+                </personne>
+                <personne id="27" sexe="H">
+                  <nom>CORNEC</nom>
+                  <prenom>Paul</prenom>
+                  <enfants/>
+                </personne>
+                <personne id="51" sexe="F">
+                  <nom>CORNEC</nom>
+                  <prenom>Jeanne</prenom>
+                  <naissance>1709</naissance>
+                  <deces>1775</deces>
+                  <enfants/>
+                </personne>
+              </enfants>
+            </personne>
+          </enfants>
+        </personne>
+      </enfants>
+    </personne>
+    <personne id="20" sexe="F">
+      <nom>BOUREL</nom>
+      <prenom>Jeanne</prenom>
+      <naissance>1640</naissance>
+      <enfants/>
+    </personne>
+  </enfants>
+</personne>
