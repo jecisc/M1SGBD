@@ -1,0 +1,105 @@
+  html,body {
+    background-color : white; 
+    font-family : Verdana, Arial, Helvetica, Geneva, sans-serif;
+  }
+  
+  p,ul,li,td {
+    font-size : 100%; 
+    color : black; 
+  }
+  
+  h1 {
+    font-size : 200%; 
+    color : navy; 
+    background-color : #6699FF; 
+    /* background-color : #FFFF66 ;*/
+    text-align: center;
+    margin-bottom : 2cm;
+  }
+  
+  h2 {
+    font-size : 150%; 
+    color : navy;
+  }
+  
+  h3 {
+    font-size : 130%; 
+    color : blue;
+  }
+  
+  h4 {
+    font-size : 100%; 
+    color : blue;
+  }
+  
+  hr.delimiteur{
+    clear : both ;
+  }
+  
+  ul#cours, ul#td, ul#tp {
+    margin : 0 ;
+    padding : 5px ;
+    list-style-type : none ;
+    background-color : white ;
+  }
+  
+  div.menu  {
+    float : left ;
+    top : 5cm ;
+    width : 7cm ;
+    margin : 10px 10px ;
+    border : 1px solid navy ;
+    background-color : #6699FF ;
+
+  }
+  
+  div.menu > h2{
+    text-align : center ;    
+  }
+ 
+  pre {
+    background-color : #99CCFF;
+    /*#6699FF; 
+    background-color : #FFFF66 ;*/
+  }
+  
+  table {
+    /*border : 2px solid black ;*/
+    padding : 0px ;
+    border-collapse : collapse ;
+  }
+  
+  .exemple table {
+    margin : 10px ;
+  }
+  
+  td {
+    border : 2px solid blue ;
+    padding : 2px ;
+    margin : 0px ;
+  }
+  
+  thead td {
+    font-weight : bold ;
+  }
+  
+  table.enGras tbody td:first-child {
+    font-weight : bold ;
+  }
+  
+  dl > dt {
+    font-weight : bold ;
+  }
+  
+  div.exemple{
+    background-color : #FFFFCC ;
+    padding : 3px ;
+    margin-top : 5px ;
+    margin-bottom : 5px ;
+    /*border : 3px solid navy ;*/
+  }
+  
+  .exemple pre{
+    /*background-color : greenyellow ;*/
+    background-color : #FFFFCC ;
+  }
