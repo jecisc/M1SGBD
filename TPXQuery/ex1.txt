@@ -1,0 +1,104 @@
+(:
+Ecrire une requête qui permet d'obtenir des informations sur Sofia Coppola : son année de naissance, ses films, et pour chaque film le titre et l'année de sortie.:)
+
+(:
+let $a := (//artist[last_name="Coppola"][first_name="Sofia"])
+return 
+<artist>{
+  $a/last_name,
+  $a/first_name,
+  $a/birth_date,
+  for $mv in //movie[director/@id = $a/@id]
+  return 
+  <movie>{
+    $mv/title,
+    $mv/year
+  }</movie>
+}</artist>:)
+
+(:Reprendre la question précédente, mais en obtenant pour résultat une page html. Pour simplifier, la sortie ne contiendra pas d'information d'espace de noms, ni de codage de caractère, de version, ...:)
+
+(:
+let $a := (//artist[last_name="Coppola"][first_name="Sofia"])
+  return
+<html>
+  <head>
+    <title>Films de {$a/first_name/text(), " ", $a/last_name/text()}</title>
+  </head>
+    <body> 
+      <h1>{$a/first_name/text()}</h1>
+      <p>Année de naissance : {$a/year/text()}</p>
+      <h3>Ses Films :</h3>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Année</th>
+          </tr>
+        </thead>
+        <tbody>{ 
+        for $mv in //movie[director/@id = $a/@id]
+        return 
+          <tr>
+            <td>{$mv/title/text()}</td>
+            <td>{$mv/year/text()}</td>
+          </tr>
+        }
+        </tbody>
+      </table>
+  </body>
+</html>:)
+
+(:Ecrire une requête qui donne chaque réalisateur et le nombre de films qu'il a fait.:)
+
+(:<directors>{
+for $d in //artist[@id = //director/@id]
+return <director>{
+  $d/last_name,
+  $d/first_name,
+  $d/birth_date
+  }
+  <nb_film>{
+    let $mv := //movie[director/@id = $d/@id] 
+    return count($mv) 
+  }</nb_film>
+</director>
+}</directors>
+:)
+
+(:Ecrire une requête qui permet de restructurer les informations présentes dans le document, en supprimant les références (donc tous les attributs). Dans le document résultat, on ne conserve pas l'information country et on regroupe tous les acteurs d'un film sous un élément actors.:)
+
+<movies>{
+  for $mv in //movie
+  return
+    <movie>{
+      $mv/title,
+      $mv/year,
+      $mv/genre,
+      $mv/summary,
+      let $d := //artist[@id = $mv/director/@id]
+      return
+        <director>{
+          $d/first_name,
+          $d/last_name,
+          $d/birth_date
+        }</director>,  
+      <actors>{
+      for $a in //artist[@id = $mv/actor/@id]
+      return
+          <actor>{
+          $a/first_name,
+          $a/last_name,
+          $a/birth_date
+          }</actor>
+        }</actors>
+  }</movie>
+}</movies>
+
+
+
+
+
+
+
+

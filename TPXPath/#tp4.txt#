@@ -1,0 +1,157 @@
+(: SGBD XPATH :)
+
+(: Les éléments title :)
+
+//title
+
+(: Les titres (i.e. chaînes de caractères) des films :)
+
+//title/text()
+
+(: Les titres des films sortis après 2000 :)
+
+//title[../year>= 2000]
+
+(: Les titres qui contiennent un "V" :)
+
+ //title[contains(text(), "v") or contains(text(), "V" )]
+
+(: Les films qui ont exactement 3 acteurs :)
+
+//movie[count(actor)=3]
+
+(: Le réalisateur de "Heat" :)
+
+//movie[title/text() = "Heat"]/director
+//director[../title = "Heat"]
+
+(: Les titres des films où figure Kirsten Dunst :)
+
+  //movie[actor/@id = //artist[first_name/text()="Kirsten"][last_name/text()="Dunst"]/@id ]/title
+
+(: Les films qui ont des résumés :)
+//movie[summary!='']/title
+
+(: Les films qui n'ont pas de résumé :)
+
+//movie[not(summary != '')]
+
+(: Le rôle de Clint Eastwood dans "Unforgiven" :)
+
+//movie[title/text() = "Unforgiven"]/actor[@id = //artist[first_name/text()="Clint"][last_name/text()="Eastwood"]/@id ]/@role/string() 
+
+(: Le dernier film dans le document :)
+
+//movie[last()]
+
+(: Le titre du film qui précède immédiatement "Marie Antoinette" dans le document :)
+
+//movie[title/text() = "Marie Antoinette"]/preceding-sibling::movie[1]
+
+(: Question 2 : Instruction conditionnelle :)
+(: A l'aide de l'instruction if donner les requêtes suivantes : :)
+(:     Pour chaque artiste, s'il est né avant 1940 on donne son nom, sinon on donne son prénom. :)
+
+//artist/(if (birth_date < 1940) then last_name else first_name)
+
+(:     Pour chaque artiste, s'il est né avant 1940 on donne son nom, sinon on ne donne rien. :)
+
+ //artist/(if (birth_date < 1940) last_name else ())
+ 
+(: Est-ce que l'instruction conditionnelle if est indispensable pour exprimer ces requêtes, ou est-ce qu'on peut y arriver avec une expression de chemin de type XPath 1.0 ? :)
+
+//artist[birth_date < 1940]/last_name union //artist[birth_date >= 1940]/first_name 
+//artist[birth_date < 1940]/last_name
+
+(: Question 3 : Boucle For :)
+(: Peut-on obtenir à l'aide d'une boucle for : :)
+
+(:     l'ensemble des couples (nom,prenom) des réalisateurs ? :)
+
+FAUX : for $director in //director/@id return concat(//artist[@id = $director]/first_name, //artist[@id = $director]/last_name)
+Pas possible de faire des séquences de séquences.
+
+(:     l'ensemble des noms et prénoms des réalisateurs ? :)
+
+for $director in //director/@id return //artist[@id = $director]/first_name union //artist[@id = $director]/last_name
+
+(: Est-ce que dans les questions précédentes, une requête utilisant une boucle for peut être remplacée par une requête utilisant une expression de chemin ? :)
+
+//artist[@id=//director/@id]/concat(last_name, first_name) 
+//artist[@id=//director/@id]/(last_name union first_name) 
+
+(: Question 4 : Expression quantifiée :)
+(: Peut-on exprimer les propositions suivantes, à l'aide d'expressions quantifiées ? :)
+
+(: Il existe des films avec 2 acteurs. :)
+
+some $movie in //movie satisfies count($movie/actor) = 2 
+
+(: Tous les artistes sont présents dans tous les films :)
+
+every $artist in //artist/@id, $movie in //movie satisfies ($movie/actor/@id = $artist or $movie/director/@id = $artist)
+
+(: Tous les artistes sont présents dans au moins un film :)
+
+every $artist in //artist/@id, satisfies (//movie/actor/@id = $artist or //movie/director/@id = $artist)
+
+
+(: Exercice 2 :)
+
+(: On stocke dans une base de données relationnelle des informations concernant la généalogie de plusieurs familles.On utilise une seule table pour stocker les informations, créée et remplie avec ce script SQL. :)
+
+(: Exécutez ce script avant de répondre aux questions. :)
+
+(: Question 1 :)
+
+(: A partir de cette table, on veut fabriquer un fichier XML contenant toutes les personnes. Ecrire une requête SQL/XML qui permet de passer des données de la table PERSONNE à l'arbre XML suivant :)
+
+
+select XMLELEMENT(name "genealogies",
+        XMLAGG(
+          XMLELEMENT(
+            name "personne",
+            XMLATTRIBUTES(
+              ID_PERS as "id",
+              SEXE as "sexe"
+            ),
+            XMLFOREST(nom as "nom", prenom as "prenom", naissance as "naissance", deces as "deces", id_pere as "pere", id_mere as "mere"))
+        )        
+      )
+from PERSONNE;
+
+(: Question 2 :)
+
+(: Donner les requêtes XPath qui permettent d'obtenir à partir du document XML précédent (toute la famille). :)
+
+(:  l'année de naissance de la personne d'identifiant 6  :)
+
+//personne[@id = 6]/naissance
+
+(:  l'année de naissance de Marie LUCAS  :)
+
+//personne[nom="LUCAS"][prenom="Marie"]/naissance
+
+(:  les parents (éléments personne) de Guillaume OMNES né en 1815  :)
+
+ //personne[@id = //personne[nom="OMNES"][prenom="Guillaume"][naissance= "1815"]/(pere | mere)]
+
+(:  le nombre de frères et soeurs de la personne d'identifiant 7  :)
+
+//personne[pere = //personne[@id = 7]/pere or mere = //personne[@id = 7]/mere][not(@id = 7)]
+
+(: Question 3 :)
+↓
+(:  Donner les requêtes XPath qui permettent d'obtenir à partir du document  des descendants de Vincent Bourel. :)
+
+(: Les noms et prénoms des ancêtres de Yves OMNES. :)
+
+//personne[nom="OMNES"][prenom="Yves"]/ancestor::personne
+
+(:  Le nombre de frères et soeurs de la personne d'identifiant 71.  :)
+
+(:  Le nombre de changements de patronyme. Il se produit à chaque fois que, dans l'arbre des descendants, une femme a des enfants.En effet, un homme transmet son nom à ses enfants, mais une femme non. :)
+
+
+
+
