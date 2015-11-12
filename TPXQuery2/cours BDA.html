@@ -1,0 +1,143 @@
+<!--?xml version="1.0" encoding="iso-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+  <link href="cours%20BDA_fichiers/cours.css" rel="stylesheet" type="text/css">
+  <title>cours BDA</title>
+
+
+</head>
+
+<body>
+<h1>TP XQuery - championnat de football</h1>
+
+<p>Ce TP est à réaliser avec BaseX sous linux.</p>
+
+<p>On utilise les fichiers de l'archive <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/foot.zip">foot.zip</a></p>
+
+<p>Cette archive contient : </p><p>
+</p><ul>
+<li>Un fichier <code>clubs_j0.xml</code>, conforme au schéma <code>clubs_scores.xsd</code>.</li>
+<li>Des fichiers <code>journeeK.xml</code> pour la Kème journée de championnat de la saison 2012-2013. Ces fichiers sont conformes au schéma <code>journee_championnat.xsd</code>.</li>
+<li>Les 2 schémas ont pour cible l'espace de nom <code>http://caronc/schema/foot</code>.</li>
+</ul>
+
+<p>L'objectif de cet exercice est de générer une page HTML avec le classement du championnat de football (ligue 1)</p>
+
+<p>Le classement est établi en tenant compte :
+
+</p><ol>
+<li>du nombre de points (chaque match rapporte 3 points au vainqueur, 0 au perdant, et 1 point à chaque équipe en cas de match nul)</li>
+<li>de la différence de buts : nb de buts marqués - nb de buts encaissés</li>
+<li>du nombre de buts marqués</li>
+</ol>
+
+<p>En cas d'égalité sur ces 3 critères, on laissera le hasard choisir, en réalité il y a d'autres critères donnés sur <a href="http://fr.wikipedia.org/wiki/Championnat_de_France_de_football#Format_de_la_comp.C3.A9tition">wikipédia</a>.</p>
+
+<h3>Structuration du code</h3>
+
+<p>On va définir un module bibliothèque, qui contiendra les fonctions 
+utilisées pour le calcul du résultat. L'entête de ce module va 
+ressembler à ça :</p>
+
+<pre>module namespace mm = "http://caronc/modules";
+(: prefixe mm pour 'mes modules' :)
+
+declare default element namespace "http://caronc/schema/foot";
+</pre>
+
+<p>Par la suite, pour répondre à chaque question vous définirez une requête qui réalise juste 1 appel de fonction.</p>
+
+<h3>Espaces de nom</h3>
+
+<ol>
+<li>Espace de nom pour les éléments html : <code>http://www.w3.org/1999/xhtml</code></li>
+<li>Espace de nom pour les éléments xml utilisés : <code>http://caronc/schema/foot</code></li>
+<li>Espace de nom pour les fonctions définies dans le module : à vous de le choisir (<code>http://caronc/modules</code> sur mon exemple)
+</li></ol>
+
+<h2>Question 1</h2>
+
+Ecrire et tester une fonction <code>mm:nouvelle_journee($clubs,$journee)</code>
+qui prend en paramètre un élément <code>clubs</code> qui contient tous les clubs avec leurs scores courants,
+et ajoute les résultats d'une nouvelle journée de championnat décrite par le sond paramètre, élément <code>journée</code>.
+Le résultat de cette fonction est un élément <code>clubs</code> dont le contenu est conforme au schéma <code>clubs_scores.xsd</code>.
+
+Voici par exemple le résultat de la fonction appliquée sur les clubs décrits dans <code>clubs_j0.xml</code> et la journée décrite
+dans <code>journee1.xml</code> :
+<pre>&lt;clubs xmlns="http://caronc/schema/foot"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://caronc/schema/foot 
+  http://www.fil.univ-lille1.fr/~caronc/SGBD/foot/clubs_scores.xsd"
+&gt;
+  &lt;club id="Bdx"&gt;
+    &lt;nom&gt;Football club des Girondins de Bordeaux&lt;/nom&gt;
+    &lt;ville&gt;Bordeaux&lt;/ville&gt;
+    &lt;scores nb_journees="1"&gt;
+      &lt;nb_buts_marques&gt;3&lt;/nb_buts_marques&gt;
+      &lt;nb_buts_encaisses&gt;2&lt;/nb_buts_encaisses&gt;
+      &lt;nb_points&gt;3&lt;/nb_points&gt;
+      &lt;classement&gt;1&lt;/classement&gt;
+    &lt;/scores&gt;
+  &lt;/club&gt;
+  &lt;club id="Bas"&gt;
+    &lt;nom&gt;Sporting Club de Bastia&lt;/nom&gt;
+    &lt;ville&gt;Bastia&lt;/ville&gt;
+    &lt;scores nb_journees="1"&gt;
+      &lt;nb_buts_marques&gt;3&lt;/nb_buts_marques&gt;
+      &lt;nb_buts_encaisses&gt;2&lt;/nb_buts_encaisses&gt;
+      &lt;nb_points&gt;3&lt;/nb_points&gt;
+      &lt;classement&gt;2&lt;/classement&gt;
+    &lt;/scores&gt;
+  &lt;/club&gt;
+  
+  ....
+  &lt;club id="Rei"&gt;
+    &lt;nom&gt;Stade de Reims&lt;/nom&gt;
+    &lt;ville&gt;Reims&lt;/ville&gt;
+    &lt;scores nb_journees="1"&gt;
+      &lt;nb_buts_marques&gt;0&lt;/nb_buts_marques&gt;
+      &lt;nb_buts_encaisses&gt;1&lt;/nb_buts_encaisses&gt;
+      &lt;nb_points&gt;0&lt;/nb_points&gt;
+      &lt;classement&gt;20&lt;/classement&gt;
+    &lt;/scores&gt;
+  &lt;/club&gt;
+&lt;/clubs&gt;
+</pre>
+
+<p>Ici, le programmeur a choisi de ranger les élément <code>club</code> selon leur classement dans le championnat, afin de faciliter la génération
+de HTML (cf question suivante).</p>
+
+<h2>Question 2</h2>
+
+<p>Ecrire une fonction qui, à partir d'un fichier qui suit le schema <code>clubs_scores.xsd</code>, génère une page HTML avec le classement
+du championnat.</p>
+<p>Par exemple, voici <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/foot/classement.html">le classement après deux journées de championnat</a>.
+Les clubs sont listés dans un tableau, du mieux classé au moins bien classé.</p>
+
+
+<h3>Entête HTML</h3>
+
+<p>Pour le résultat, on aimerait avoir une entête HTML correcte. La <a href="http://docs.basex.org/wiki/Serialization">page suivante</a> doit vous permettre de choisir les options à définir
+dans le prologue de votre requête. Par exemple, pour indiquer que vous voulez générer une sortie en XHTML, choisissez</p>
+
+<pre>declare option output:method "xhtml";
+</pre>
+
+<h2>Question 3</h2>
+
+<p>Dans ce second exercice, on va s'intéresser à l'extraction d'information de pages web.
+En effet, les fichiers avec les résultats des journées sont fabriqués à partir de pages HTML.</p>
+
+<p>Définir une nouvelle requête qui à partir d'un extrait de document HTML
+comme <a href="http://www.fil.univ-lille1.fr/%7Ecaronc/SGBD/foot/journee3.html">journee3.html</a> a pour résultat un document XML qui suit le schéma <code>journee_championnat.xsd</code>.
+Vous pouvez pour cela compléter le module bibliothèque de l'exercice précédent avec les fonctions que vous jugerez nécessaires.</p>
+
+<p>Vérifier que ce qui a été fait au premier exercice fonctionne 
+toujours : vous pouvez générer le classement après les 3 premières 
+journées de championnat.</p>
+
+
+
+</body></html>

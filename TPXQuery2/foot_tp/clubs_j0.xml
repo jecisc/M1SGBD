@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<clubs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://caronc/schema/foot"
+             xsi:schemaLocation="http://caronc/schema/foot
+                         http://www.fil.univ-lille1.fr/~caronc/SGBD/foot/clubs_scores.xsd">
+    <club id="OL">
+      <nom>Olympique Lyonnais</nom>
+      <ville>Lyon</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="LOSC">
+      <nom>Lille Olympique Sporting Club</nom>
+      <ville>Lille</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Bdx">
+      <nom>Football club des Girondins de Bordeaux</nom>
+      <ville>Bordeaux</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="OM">
+      <nom>Olympique Marseillais</nom>
+      <ville>Marseille</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="ACA">
+      <nom>Athletic Club Ajaccien</nom>
+      <ville>Ajaccio</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="ESTAC">
+      <nom>Espérance Sportive Troyes Aube Champagne</nom>
+      <ville>Troyes</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="ASNL">
+      <nom>Association Sportive de Nancy-Lorraine</nom>
+      <ville>Nancy</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Bas">
+      <nom>Sporting Club de Bastia</nom>
+      <ville>Bastia</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Lor">
+      <nom>Football Club Lorient-Bretagne Sud</nom>
+      <ville>Lorient</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Ren">
+      <nom>Stade Rennais Football Club</nom>
+      <ville>Rennes</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Tou">
+      <nom>Toulouse Football Club</nom>
+      <ville>Toulouse</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="ASSE">
+      <nom>Association Sportive de Saint Etienne</nom>
+      <ville>Saint Etienne</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="VA">
+      <nom>Valenciennes Football Club</nom>
+      <ville>Valenciennes</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Soc">
+      <nom>Football Club de Sochaux-Montbéliard</nom>
+      <ville>Sochaux</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="PSG">
+      <nom>Paris Saint Germain</nom>
+      <ville>Paris</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Mon">
+      <nom>Montpellier-Herault Sports Club</nom>
+      <ville>Montpellier</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="ETG">
+      <nom>Evian Thonon Gaillard Football Club</nom>
+      <ville>Evian</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="OGCN">
+      <nom>Olympique Gymnaste Club de Nice Côte d'Azur</nom>
+      <ville>Nice</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="SB">
+      <nom>Stade Brestois</nom>
+      <ville>Brest</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+    <club id="Rei">
+      <nom>Stade de Reims</nom>
+      <ville>Reims</ville>
+      <scores nb_journees = '0'>
+        <nb_buts_marques>0</nb_buts_marques>
+        <nb_buts_encaisses>0</nb_buts_encaisses>
+        <nb_points>0</nb_points>
+        <classement>0</classement>
+      </scores>
+    </club>
+</clubs>
+  

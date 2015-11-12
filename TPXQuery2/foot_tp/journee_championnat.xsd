@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema
+                         http://www.w3.org/2001/XMLSchema.xsd"
+            xmlns="http://caronc/schema/foot"
+            targetNamespace="http://caronc/schema/foot"
+            elementFormDefault="qualified">
+            
+  <!-- une journée de championnat -->
+  
+  <!-- un type pour une rencontre -->
+  <xs:complexType name="TypeRencontre">
+    <xs:sequence>
+      <!-- les 2 clubs qui s'affrontent -->
+      <xs:element name="clubReceveur" type="xs:string"/>
+      <xs:element name="clubInvité" type="xs:string"/>
+      <!-- la date de la rencontre (optionnelle) -->
+      <xs:element name="date" type="xs:date" minOccurs="0" maxOccurs="1"/>
+      <!-- score du receveur -->
+      <xs:element name="scoreRec">
+        <xs:simpleType>
+          <xs:list itemType="xs:nonNegativeInteger"/>
+        </xs:simpleType>
+      </xs:element>
+      <!-- score de l'invité -->
+      <xs:element name="scoreInv">
+        <xs:simpleType>
+          <xs:list itemType="xs:nonNegativeInteger"/>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <!-- un numéro de journée est un entier entre 1 et 38 -->
+  <xs:simpleType name="TypeNumJournée">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:minInclusive value="1"/>
+      <xs:maxInclusive value="38"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <!-- type pour une journée : séquence de rencontres, et attribut numéro de la journée -->
+  
+  <xs:complexType name="TypeJournée">
+    <xs:sequence>
+      <xs:element name="rencontre" type="TypeRencontre" minOccurs="1" maxOccurs="10" />
+    </xs:sequence>
+    <xs:attribute name="num" type="TypeNumJournée"/>
+  </xs:complexType>
+  
+</xs:schema>

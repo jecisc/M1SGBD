@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xsi:schemaLocation="http://www.w3.org/2001/XMLSchema
+                         http://www.w3.org/2001/XMLSchema.xsd"
+            xmlns="http://caronc/schema/foot"
+            targetNamespace="http://caronc/schema/foot"
+            elementFormDefault="qualified">
+  <!--les scores -->
+
+<!-- le score après n journées -->
+  <xs:complexType name="TypeScore">
+    <xs:sequence>
+      <xs:element name="nb_buts_marques" type="xs:nonNegativeInteger"/>
+      <xs:element name="nb_buts_encaisses" type="xs:nonNegativeInteger"/>
+      <xs:element name="nb_points" type="xs:nonNegativeInteger"/>
+      <xs:element name="classement" type="xs:nonNegativeInteger"/>
+    </xs:sequence>
+    <xs:attribute name="nb_journees" type="xs:nonNegativeInteger" use="required"/>
+  </xs:complexType>
+
+  <!-- les clubs --> 
+  <!-- Le type d'un club -->
+  <xs:complexType name="TypeClub">
+    <xs:sequence>
+      <!-- le nom du club -->
+      <xs:element name="nom" type="xs:string"/>
+      <xs:element name="ville" type="xs:string"/>
+      <xs:element name="scores" type="TypeScore"/>
+    </xs:sequence>
+    <!-- identifiant de club : souvent acronyme -->
+    <xs:attribute name="id" type="xs:ID"/>
+  </xs:complexType>
+  
+  <!-- l'élément clubs contient une séquence d'élément club -->
+  <xs:element name="clubs">
+    <xs:complexType>
+      <xs:sequence>
+       <xs:element name="club" type="TypeClub" minOccurs="0" maxOccurs="unbounded" />
+     </xs:sequence>
+   </xs:complexType>
+   <!-- l'attribut id est une clef pour les clubs -->
+   <xs:key name="clefClub">
+     <xs:selector xpath="club"/>
+     <xs:field xpath="@id"/>
+   </xs:key>
+  </xs:element>
+  
+</xs:schema>
