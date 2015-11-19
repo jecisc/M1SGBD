@@ -3,6 +3,12 @@ module namespace mm = "http://cyril/modules";
 
 declare default element namespace "http://caronc/schema/foot";
 
+declare function mm:toutes_les_journees($clubs as element(clubs), $journees as element(journée)*){
+  if(count($journees)>0)
+  then mm:toutes_les_journees(mm:nouvelle_journee($clubs, $journees[1]), remove($journees,1))
+  else $clubs
+};
+
 declare function mm:nouvelle_journee($clubs as element(clubs) ,$journee as element(journée)) as element(clubs) {
   <clubs xmlns="http://caronc/schema/foot"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -60,7 +66,7 @@ declare function mm:nb_but_encaisses($club as element(club) ,$journee as element
 declare function mm:nb_but_encaisses_num($club as element(club) ,$journee as element(journée)) as xs:double {
       let $marqueRec := sum($journee/rencontre[clubReceveur = $club/@id]/scoreInv),
           $marqueInv := sum($journee/rencontre[clubInvité = $club/@id]/scoreRec)
-      return $club/scores/nb_buts_marques + $marqueRec + $marqueInv
+      return $club/scores/nb_buts_encaisses + $marqueRec + $marqueInv
 };
 
 declare function mm:nb_points($club as element(club) ,$journee as element(journée)) as element(nb_points) {

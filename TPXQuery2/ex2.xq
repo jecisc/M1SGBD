@@ -8,7 +8,7 @@ declare option output:include-content-type "yes";
 declare option output:omit-xml-declaration "no";
 
 let $clubs := //foot:clubs, $j := //foot:journée
-return mm:generateHTML(mm:nouvelle_journee($clubs, $j[1]))
+return mm:generateHTML(mm:toutes_les_journees($clubs, $j))
 
 
 
