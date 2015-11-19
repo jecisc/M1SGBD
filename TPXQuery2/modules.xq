@@ -101,5 +101,3 @@ declare function mm:classement_tot($club as element(club) ,$journee as element(j
         return 
            $club2
 };
-
-
