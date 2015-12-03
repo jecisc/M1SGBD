@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<!--[if IE 7]>
+<html id="ie7" lang="en">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="en">
+<![endif]-->
+<!--[if !(IE 7) & !(IE 8)]><!-->
+<html lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/count_002.js" async=""></script><script src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/count.js" async=""></script>
+<meta charset="UTF-8">
+<title>HBase shell commands | Learn HBase</title>
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://learnhbase.wordpress.com/xmlrpc.php">
+<!--[if lt IE 9]>
+<script src="https://s0.wp.com/wp-content/themes/pub/blogum/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+<link rel="alternate" type="application/rss+xml" title="Learn HBase » Feed" href="https://learnhbase.wordpress.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Learn HBase » Comments Feed" href="https://learnhbase.wordpress.com/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Learn HBase » HBase shell commands Comments Feed" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/feed/">
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel="stylesheet" id="all-css-0" href="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a_003"></script>
+<link rel="stylesheet" id="all-css-0" href="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/style.css" type="text/css" media="all">
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://learnhbase.wordpress.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="HBase introduction" href="https://learnhbase.wordpress.com/2013/03/01/hbase-introduction/">
+<meta name="generator" content="WordPress.com">
+<link rel="canonical" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/">
+<link rel="shortlink" href="http://wp.me/p3esI0-6">
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=https%3A%2F%2Flearnhbase.wordpress.com%2F2013%2F03%2F02%2Fhbase-shell-commands%2F&amp;for=wpcom-auto-discovery"><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=https%3A%2F%2Flearnhbase.wordpress.com%2F2013%2F03%2F02%2Fhbase-shell-commands%2F&amp;for=wpcom-auto-discovery">
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="HBase shell commands">
+<meta property="og:url" content="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/">
+<meta property="og:description" content="As told in HBase introduction, HBase provides Extensible jruby-based (JIRB) shell as a feature to execute some commands(each command represents one functionality). HBase shell commands are mainly c...">
+<meta property="article:published_time" content="2013-03-02T05:55:36+00:00">
+<meta property="article:modified_time" content="2013-03-02T05:55:36+00:00">
+<meta property="og:site_name" content="Learn HBase">
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:site" content="@wordpressdotcom">
+<meta name="twitter:card" content="summary">
+<meta property="fb:app_id" content="249643311490">
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom">
+<link rel="shortcut icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="icon" type="image/x-icon" href="https://s2.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48">
+<link rel="apple-touch-icon-precomposed" href="https://s0.wp.com/i/webclip.png">
+<link rel="openid.server" href="https://learnhbase.wordpress.com/?openidserver=1">
+<link rel="openid.delegate" href="https://learnhbase.wordpress.com/">
+<link rel="search" type="application/opensearchdescription+xml" href="https://learnhbase.wordpress.com/osd.xml" title="Learn HBase">
+<link rel="search" type="application/opensearchdescription+xml" href="https://wordpress.com/opensearch.xml" title="WordPress.com">
+		<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+				<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Learn HBase"><meta name="msapplication-window" content="width=device-width;height=device-height"><meta name="msapplication-tooltip" content="Welcome to Apache HBase blog."><meta name="msapplication-task" content="name=Subscribe;action-uri=https://learnhbase.wordpress.com/feed/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s2.wp.com/i/favicon.ico"><meta name="title" content="HBase shell commands | Learn HBase on WordPress.com">
+<meta name="description" content="As told in HBase introduction, HBase provides Extensible jruby-based (JIRB) shell as a feature to execute some commands(each command represents one functionality). HBase shell commands are mainly categorized into 6 parts 1) General&nbsp; HBase shell commands status Show cluster status. Can be 'summary', 'simple', or 'detailed'. The default is 'summary'. hbase&gt; status hbase&gt; status 'simple'…">
+		<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/amzn_ads.js"></script>
+		<script type="text/javascript">
+		try { amznads.getAds("3033"); } catch(e) { /* ignore */ }
+		</script>
+		<script type="text/javascript">
+		var a9_p = amznads.getKeys(),
+		_ipw_custom = {
+			wordAds: '0',
+			adSafe: '0',
+			domain: 'learnhbase.wordpress.com',
+			pageURL: 'https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/'
+		};
+		if("undefined"!=typeof a9_p&&""!=a9_p&&null!==a9_p&&"[object Array]"===Object.prototype.toString.call(a9_p)){var a="",b=0,c=a9_p.length;a9_p.sort();for(var d=0;d<c;d++){a9_p[d-b]=a9_p[d-b].replace(/a1x6p/,"a160x600p");var e=a9_p[d-b].split("p");e[0]==a&&(a9_p.splice(d-b,1),b++);a=e[0]}_ipw_custom.amznPay=a9_p};document.close();
+		</script>		<!-- IPONWEB header script -->
+		<script type="text/javascript">
+			window.__ATA = {
+				scriptSrc: '//s.pubmine.com/showad.js',
+				slotPrefix: 'automattic-id-',
+				initAd: function(o) {
+					var o = o || {},
+						g = window,
+						d = g.document,
+						wr = d.write,
+						id = g.__ATA.id();
+					wr.call(d, '<div id="' + id + '" data-section="' + (o.sectionId || 0) + '"' + (o.type ? ('data-type="' + o.type + '"') : '') + ' ' + (o.forcedUrl ? ('data-forcedurl="' + o.forcedUrl + '"') : '') + ' style="width:' + (o.width || 0) + 'px; height:' + (o.height || 0) + 'px;">');
+					g.__ATA.displayAd(id);
+					wr.call(d, '</div>');
+				},
+				displayAd: function(id) {
+					window.__ATA.ids = window.__ATA.ids || {};
+					window.__ATA.ids[id] = 1;
+				},
+				customParams: _ipw_custom,
+				id: function() {
+					return window.__ATA.slotPrefix + (parseInt(Math.random() * 10000, 10) + 1 + (new Date()).getMilliseconds());
+				}
+			};
+			(function(d, ata) {
+				var pr = "https:" === d.location.protocol ? "https:" : "http:",
+					src = pr + ata.scriptSrc,
+					st = "text/javascript";
+				d.write('<scr' + 'ipt type="' + st + '" src="' + src + '"><\/scr' + 'ipt>');
+			})(window.document, window.__ATA);
+		</script><script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/showad.js"></script>
+		<script type="text/javascript">
+		jQuery(window).ready(function () {
+			jQuery("a.wpa-about").text("About these ads");
+		});
+		</script><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script><script src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/ga.js" async="" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" id="gravatar-card-css" href="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/hovercard.css"><link rel="stylesheet" type="text/css" id="gravatar-card-services-css" href="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/services.css"></head>
+<body class="single single-post postid-6 single-format-standard mp6 customizer-styles-applied highlander-enabled highlander-light">
+<div class="wrapper">
+	<header id="header" role="banner">
+		<hgroup>
+			<h1 id="site-title"><a href="https://learnhbase.wordpress.com/" title="Learn HBase" rel="home"><span class="emdash">—</span>Learn HBase</a></h1>
+							<h2 id="site-description">Welcome to Apache HBase blog.</h2>
+					</hgroup>
+
+		<div class="clear">
+			<nav id="access" class="clear" role="navigation">
+				<ul class="menu clear"><li><a href="https://learnhbase.wordpress.com/">Home</a></li><li class="page_item page-item-1"><a href="https://learnhbase.wordpress.com/about/">About</a></li></ul>
+			</nav><!-- end #menu -->
+
+			<div class="search-form-holder">
+	<form method="get" id="searchform" action="https://learnhbase.wordpress.com/">
+		<fieldset>
+			<input name="s" onfocus="if ( this.value=='Search' ) this.value='';" onblur="if ( this.value=='' ) this.value='Search';" value="Search" type="text">
+			<button type="submit"></button>
+		</fieldset>
+	</form>
+</div><!-- .search-form-holder -->		</div>
+	</header>
+		<div class="middle clear">
+<div id="content" role="main">
+
+	
+		<article id="post-6" class="clear post-6 post type-post status-publish format-standard hentry category-uncategorized">
+	<div class="post-meta">
+			<div class="post-data">
+		<div class="post-date"><a class="post-date-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/" rel="bookmark">March 2, 2013</a></div><div class="post-categories"><a href="https://learnhbase.wordpress.com/category/uncategorized/" rel="category tag">Uncategorized</a></div>	</div><!-- .post-data -->
+
+				<div class="comments-link">
+			<a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/#comments">12 Comments</a>		</div>
+	
+			</div><!-- .post-meta -->
+
+	<div class="post-content">
+		<header>
+			<h1 class="post-title">HBase shell commands</h1>
+		</header>
+		<p>As told in HBase introduction, HBase provides Extensible 
+jruby-based (JIRB) shell as a feature to execute some commands(each 
+command represents one functionality).</p>
+<p><strong>HBase shell commands are mainly categorized into 6 parts</strong></p>
+<p><strong>1) General&nbsp; HBase shell commands</strong></p>
+<table>
+<tbody>
+<tr>
+<td><strong>status</strong></td>
+<td>Show cluster status. Can be ‘summary’, ‘simple’, or ‘detailed’. The<br>
+default is ‘summary’.<p></p>
+<p><strong>hbase&gt; status</strong><br>
+<strong> hbase&gt; status ‘simple’</strong><br>
+<strong> hbase&gt; status ‘summary’</strong><br>
+<strong> hbase&gt; status ‘detailed’</strong></p></td>
+</tr>
+<tr>
+<td><strong>version</strong></td>
+<td>Output this HBase version<strong>Usage:</strong><p></p>
+<p><strong>hbase&gt; version</strong></p></td>
+</tr>
+<tr>
+<td><strong>whoami</strong></td>
+<td>Show the current hbase user.<strong>Usage:</strong><p></p>
+<p><strong>hbase&gt; whoami</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>2) Tables Management commands</strong></p>
+<table width="823">
+<tbody>
+<tr>
+<td><strong>alter</strong></td>
+<td>Alter column family schema; pass table name and a dictionary<br>
+specifying new column family schema. Dictionaries are described<br>
+on the main help command output. Dictionary must include name<br>
+of column family to alter.For example, to change or add the ‘f1’ column family in table ‘t1’ from<br>
+current value to keep a maximum of 5 cell VERSIONS, do:<p></p>
+<p><strong>hbase&gt; alter ‘t1’, NAME =&gt; ‘f1’, VERSIONS =&gt; 5</strong></p>
+<p><strong></strong>You can operate on several column families:</p>
+<p><strong>hbase&gt; alter ‘t1’, ‘f1’, {NAME =&gt; ‘f2’, IN_MEMORY =&gt; true}, {NAME =&gt; ‘f3’, VERSIONS =&gt; 5}</strong></p>
+<p><strong></strong>To delete the ‘f1’ column family in table ‘t1’, use one of:hbase&gt; alter ‘t1’, NAME =&gt; ‘f1’, METHOD =&gt; ‘delete’<br>
+<strong>hbase&gt; alter ‘t1’, ‘delete’ =&gt; ‘f1’</strong></p>
+<p>You can also change table-scope attributes like MAX_FILESIZE, READONLY,<br>
+MEMSTORE_FLUSHSIZE, DEFERRED_LOG_FLUSH, etc. These can be put at the end;<br>
+for example, to change the max size of a region to 128MB, do:</p>
+<p><strong>hbase&gt; alter ‘t1’, MAX_FILESIZE =&gt; ‘134217728’</strong></p>
+<p>You can add a table coprocessor by setting a table coprocessor attribute:</p>
+<p><strong>hbase&gt; alter ‘t1’,</strong><br>
+<strong> ‘coprocessor’=&gt;’hdfs:///foo.jar|com.foo.FooRegionObserver|1001|arg1=1,arg2=2’</strong></p>
+<p>Since you can have multiple coprocessors configured for a table, a<br>
+sequence number will be automatically appended to the attribute name<br>
+to uniquely identify it.</p>
+<p>The coprocessor attribute must match the pattern below in order for<br>
+the framework to understand how to load the coprocessor classes:</p>
+<p>[coprocessor jar file location] | class name | [priority] | [arguments]</p>
+<p>You can also set configuration settings specific to this table or column family:</p>
+<p><strong>hbase&gt; alter ‘t1’, CONFIGURATION =&gt; {‘hbase.hregion.scan.loadColumnFamiliesOnDemand’ =&gt; ‘true’}</strong><br>
+<strong> hbase&gt; alter ‘t1’, {NAME =&gt; ‘f2’, CONFIGURATION =&gt; {‘hbase.hstore.blockingStoreFiles’ =&gt; ’10’}}</strong></p>
+<p>You can also remove a table-scope attribute:</p>
+<p><strong>hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att_unset’, NAME =&gt; ‘MAX_FILESIZE’</strong></p>
+<p><strong>hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att_unset’, NAME =&gt; ‘coprocessor$1’</strong></p>
+<p>There could be more than one alteration in one command:</p>
+<p><strong>hbase&gt; alter ‘t1’, { NAME =&gt; ‘f1’, VERSIONS =&gt; 3 },</strong><br>
+<strong> { MAX_FILESIZE =&gt; ‘134217728’ }, { METHOD =&gt; ‘delete’, NAME =&gt; ‘f2’ },</strong><br>
+<strong> OWNER =&gt; ‘johndoe’, METADATA =&gt; { ‘mykey’ =&gt; ‘myvalue’ }</strong></p></td>
+</tr>
+<tr>
+<td><strong>create</strong></td>
+<td>Create table; pass table name, a dictionary of specifications per<br>
+column family, and optionally a dictionary of table configuration.<strong></strong><p></p>
+<p><strong>hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, VERSIONS =&gt; 5}</strong><br>
+<strong> hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’}, {NAME =&gt; ‘f2’}, {NAME =&gt; ‘f3’}</strong><br>
+<strong> hbase&gt; # The above in shorthand would be the following:</strong><br>
+<strong> hbase&gt; create ‘t1’, ‘f1’, ‘f2’, ‘f3’</strong><br>
+<strong> hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, VERSIONS =&gt; 1, TTL =&gt; 2592000, BLOCKCACHE =&gt; true}</strong><br>
+<strong> hbase&gt; create ‘t1’, {NAME =&gt; ‘f1’, CONFIGURATION =&gt; {‘hbase.hstore.blockingStoreFiles’ =&gt; ’10’}}</strong></p>
+<p>Table configuration options can be put at the end.</p></td>
+</tr>
+<tr>
+<td><strong>describe</strong></td>
+<td>Describe the named table.<p></p>
+<p><strong>hbase&gt; describe ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>disable</strong></td>
+<td>Start disable of named table<strong></strong><p></p>
+<p><strong>hbase&gt; disable ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>disable_all</strong></td>
+<td>Disable all of tables matching the given regex<p></p>
+<p><strong>hbase&gt; disable_all ‘t.*’</strong></p></td>
+</tr>
+<tr>
+<td><strong>is_disabled</strong></td>
+<td>verifies Is named table disabled<p></p>
+<p><strong>hbase&gt; is_disabled ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>drop&nbsp;</strong></td>
+<td>Drop the named table. Table must first be disabled<p></p>
+<p><strong>hbase&gt; drop ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>drop_all</strong></td>
+<td>Drop all of the tables matching the given regex<p></p>
+<p><strong>hbase&gt; drop_all ‘t.*’</strong></p></td>
+</tr>
+<tr>
+<td><strong>enable</strong></td>
+<td>Start enable of named table<p></p>
+<p><strong>hbase&gt; enable ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>enable_all</strong></td>
+<td>Enable all of the tables matching the given regex<p></p>
+<p><strong>hbase&gt; enable_all ‘t.*’</strong></p></td>
+</tr>
+<tr>
+<td><strong>is_enabled</strong></td>
+<td>verifies Is named table enabled<p></p>
+<p><strong>hbase&gt; is_enabled ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>exists</strong></td>
+<td>Does the named table exist<p></p>
+<p><strong>hbase&gt; exists ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>list</strong></td>
+<td><strong> </strong>List all tables in hbase. Optional regular expression parameter could<br>
+be used to filter the output<p></p>
+<p><strong>hbase&gt; list</strong><br>
+<strong> hbase&gt; list ‘abc.*’</strong></p></td>
+</tr>
+<tr>
+<td><strong>show_filters</strong></td>
+<td>Show all the filters in hbase.<p></p>
+<p><strong>hbase&gt; show_filters</strong></p></td>
+</tr>
+<tr>
+<td><strong>alter_status</strong></td>
+<td>Get the status of the alter command. Indicates the number of regions
+ of the table that have received the updated schema Pass table name.<p></p>
+<p><strong>hbase&gt; alter_status ‘t1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>alter_async</strong></td>
+<td>Alter column family schema, does not wait for all regions to receive the<br>
+schema changes. Pass table name and a dictionary specifying new column<br>
+family schema. Dictionaries are described on the main help command output.<br>
+Dictionary must include name of column family to alter.<p></p>
+<p>To change or add the ‘f1’ column family in table ‘t1’ from defaults<br>
+to instead keep a maximum of 5 cell VERSIONS, do:hbase&gt; alter_async 
+‘t1’, NAME =&gt; ‘f1’, VERSIONS =&gt; 5To delete the ‘f1’ column family 
+in table ‘t1’, do:</p>
+<p><strong>hbase&gt; alter_async ‘t1’, NAME =&gt; ‘f1’, METHOD =&gt; 
+‘delete’or a shorter version:hbase&gt; alter_async ‘t1’, ‘delete’ =&gt; 
+‘f1’</strong></p>
+<p>You can also change table-scope attributes like MAX_FILESIZE<br>
+MEMSTORE_FLUSHSIZE, READONLY, and DEFERRED_LOG_FLUSH.</p>
+<p>For example, to change the max size of a family to 128MB, do:</p>
+<p><strong>hbase&gt; alter ‘t1’, METHOD =&gt; ‘table_att’, MAX_FILESIZE =&gt; ‘134217728’</strong></p>
+<p>There could be more than one alteration in one command:</p>
+<p><strong>hbase&gt; alter ‘t1’, {NAME =&gt; ‘f1’}, {NAME =&gt; ‘f2’, METHOD =&gt; ‘delete’}</strong></p>
+<p>To check if all the regions have been updated, use alter_status &lt;table_name&gt;</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>3) Data Manipulation commands</strong><strong>&nbsp;&nbsp;</strong></p>
+<table>
+<tbody>
+<tr>
+<td><strong>count</strong></td>
+<td>Count the number of rows in a table. Return value is the number of rows.<br>
+This operation may take a LONG time (Run ‘$HADOOP_HOME/bin/hadoop jar<br>
+hbase.jar rowcount’ to run a counting mapreduce job). Current count is shown<br>
+every 1000 rows by default. Count interval may be optionally specified. Scan<br>
+caching is enabled on count scans by default. Default cache size is 10 rows.<br>
+If your rows are small in size, you may want to increase this<br>
+parameter. Examples:hbase&gt; count ‘t1’<br>
+<strong>hbase&gt; count ‘t1’, INTERVAL =&gt; 100000</strong><br>
+<strong> hbase&gt; count ‘t1’, CACHE =&gt; 1000</strong><br>
+<strong> hbase&gt; count ‘t1’, INTERVAL =&gt; 10, CACHE =&gt; 1000</strong><p></p>
+<p>The same commands also can be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding commands would be:hbase&gt; t.count<br>
+<strong>hbase&gt; t.count INTERVAL =&gt; 100000</strong><br>
+<strong> hbase&gt; t.count CACHE =&gt; 1000</strong><br>
+<strong> hbase&gt; t.count INTERVAL =&gt; 10, CACHE =&gt; 1000</strong></p></td>
+</tr>
+<tr>
+<td><strong>delete</strong></td>
+<td>Put a delete cell value at specified table/row/column and optionally<br>
+timestamp coordinates. Deletes must match the deleted cell’s<br>
+coordinates exactly. When scanning, a delete cell suppresses older<br>
+versions. To delete a cell from ‘t1’ at row ‘r1’ under column ‘c1’<br>
+marked with the time ‘ts1’, do:<p></p>
+<p><strong>hbase&gt; delete ‘t1’, ‘r1’, ‘c1’, ts1</strong></p>
+<p><strong></strong>The same command can also be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding command would be:hbase&gt; t.delete ‘r1’, ‘c1’, ts1</p></td>
+</tr>
+<tr>
+<td><strong>deleteall</strong></td>
+<td>Delete all cells in a given row; pass a table name, row, and optionally<br>
+a column and timestamp. Examples:hbase&gt; deleteall ‘t1’, ‘r1’<br>
+<strong>hbase&gt; deleteall ‘t1’, ‘r1’, ‘c1’</strong><br>
+<strong> hbase&gt; deleteall ‘t1’, ‘r1’, ‘c1’, ts1</strong><p></p>
+<p>The same commands also can be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding command would be:hbase&gt; t.deleteall ‘r1’<br>
+<strong>hbase&gt; t.deleteall ‘r1’, ‘c1’</strong><br>
+<strong> hbase&gt; t.deleteall ‘r1’, ‘c1’, ts1</strong></p></td>
+</tr>
+<tr>
+<td><strong>get</strong></td>
+<td>Get row or cell contents; pass table name, row, and optionally<br>
+a dictionary of column(s), timestamp, timerange and versions. Examples:<p></p>
+<p><strong>hbase&gt; get ‘t1’, ‘r1’</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {TIMERANGE =&gt; [ts1, ts2]}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; [‘c1’, ‘c2’, ‘c3’]}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMERANGE =&gt; [ts1, ts2], VERSIONS =&gt; 4}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1, VERSIONS =&gt; 4}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, {FILTER =&gt; “ValueFilter(=, ‘binary:abc’)”}</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, ‘c1’</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, ‘c1’, ‘c2’</strong><br>
+<strong> hbase&gt; get ‘t1’, ‘r1’, [‘c1’, ‘c2’]</strong></p>
+<p>Besides the default ‘toStringBinary’ format, ‘get’ also supports custom formatting by<br>
+column. A user can define a FORMATTER by adding it to the column name in the get<br>
+specification. The FORMATTER can be stipulated:1. either as a 
+org.apache.hadoop.hbase.util.Bytes method name (e.g, toInt, toString)<br>
+2. or as a custom class followed by method name: e.g. 
+‘c(MyFormatterClass).format’.Example formatting cf:qualifier1 and 
+cf:qualifier2 both as Integers:<br>
+hbase&gt; get ‘t1’, ‘r1’ {COLUMN =&gt; [‘cf:qualifier1:toInt’,<br>
+‘cf:qualifier2:c(org.apache.hadoop.hbase.util.Bytes).toInt’] }</p>
+<p>Note that you can specify a FORMATTER by column only (cf:qualifer). You cannot specify<br>
+a FORMATTER for all columns of a column family.The same commands also 
+can be run on a reference to a table (obtained via get_table or<br>
+create_table). Suppose you had a reference t to table ‘t1’, the corresponding commands<br>
+would be:</p>
+<p><strong>hbase&gt; t.get ‘r1’</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {TIMERANGE =&gt; [ts1, ts2]}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {COLUMN =&gt; [‘c1’, ‘c2’, ‘c3’]}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMERANGE =&gt; [ts1, ts2], VERSIONS =&gt; 4}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {COLUMN =&gt; ‘c1’, TIMESTAMP =&gt; ts1, VERSIONS =&gt; 4}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, {FILTER =&gt; “ValueFilter(=, ‘binary:abc’)”}</strong><br>
+<strong> hbase&gt; t.get ‘r1’, ‘c1’</strong><br>
+<strong> hbase&gt; t.get ‘r1’, ‘c1’, ‘c2’</strong><br>
+<strong> hbase&gt; t.get ‘r1’, [‘c1’, ‘c2’]</strong></p></td>
+</tr>
+<tr>
+<td><strong>get_counter</strong></td>
+<td>Return a counter cell value at specified table/row/column coordinates.<br>
+A cell cell should be managed with atomic increment function oh HBase<br>
+and the data should be binary encoded. Example:<p></p>
+<p><strong>hbase&gt; get_counter ‘t1’, ‘r1’, ‘c1’</strong></p>
+<p><strong></strong>The same commands also can be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding command would be:</p>
+<p><strong>hbase&gt; t.get_counter ‘r1’, ‘c1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>incr</strong></td>
+<td>Increments a cell ‘value’ at specified table/row/column coordinates.<br>
+To increment a cell value in table ‘t1’ at row ‘r1’ under column<br>
+‘c1’ by 1 (can be omitted) or 10 do:<p></p>
+<p><strong>hbase&gt; incr ‘t1’, ‘r1’, ‘c1’</strong><br>
+<strong> hbase&gt; incr ‘t1’, ‘r1’, ‘c1’, 1</strong><br>
+<strong> hbase&gt; incr ‘t1’, ‘r1’, ‘c1’, 10</strong></p>
+<p>The same commands also can be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding command would be:hbase&gt; t.incr ‘r1’, ‘c1’<br>
+<strong>hbase&gt; t.incr ‘r1’, ‘c1’, 1</strong><br>
+<strong> hbase&gt; t.incr ‘r1’, ‘c1’, 10</strong></p></td>
+</tr>
+<tr>
+<td><strong>put</strong></td>
+<td>Put a cell ‘value’ at specified table/row/column and optionally<br>
+timestamp coordinates. To put a cell value into table ‘t1’ at<br>
+row ‘r1’ under column ‘c1’ marked with the time ‘ts1’, do:<p></p>
+<p><strong>hbase&gt; put ‘t1’, ‘r1’, ‘c1’, ‘value’, ts1</strong></p>
+<p>The same commands also can be run on a table reference. Suppose you had a reference<br>
+t to table ‘t1’, the corresponding command would be:</p>
+<p><strong>hbase&gt; t.put ‘r1’, ‘c1’, ‘value’, ts1</strong></p></td>
+</tr>
+<tr>
+<td><strong>scan</strong></td>
+<td>Scan a table; pass table name and optionally a dictionary of scanner<br>
+specifications. Scanner specifications may include one or more of:<br>
+TIMERANGE, FILTER, LIMIT, STARTROW, STOPROW, TIMESTAMP, MAXLENGTH,<br>
+or COLUMNS, CACHEIf no columns are specified, all columns will be scanned.<br>
+To scan all members of a column family, leave the qualifier empty as in<br>
+‘col_family:’.The filter can be specified in two ways:<br>
+1. Using a filterString – more information on this is available in the<br>
+Filter Language document attached to the HBASE-4176 JIRA<br>
+2. Using the entire package name of the filter.Some examples:hbase&gt; scan ‘.META.’<br>
+<strong>hbase&gt; scan ‘.META.’, {COLUMNS =&gt; ‘info:regioninfo’}</strong><br>
+<strong> hbase&gt; scan ‘t1’, {COLUMNS =&gt; [‘c1’, ‘c2’], LIMIT =&gt; 10, STARTROW =&gt; ‘xyz’}</strong><br>
+<strong> hbase&gt; scan ‘t1’, {COLUMNS =&gt; ‘c1’, TIMERANGE =&gt; [1303668804, 1303668904]}</strong><br>
+<strong> hbase&gt; scan ‘t1’, {FILTER =&gt; “(PrefixFilter (‘row2’) AND</strong><br>
+<strong> (QualifierFilter (&gt;=, ‘binary:xyz’))) AND (TimestampsFilter ( 123, 456))”}</strong><br>
+<strong> hbase&gt; scan ‘t1’, {FILTER =&gt;</strong><br>
+<strong> org.apache.hadoop.hbase.filter.ColumnPaginationFilter.new(1, 0)}</strong><p></p>
+<p>For experts, there is an additional option — CACHE_BLOCKS — which<br>
+switches block caching for the scanner on (true) or off (false). By<br>
+default it is enabled. Examples:hbase&gt; scan ‘t1’, {COLUMNS =&gt; [‘c1’, ‘c2’], CACHE_BLOCKS =&gt; false}</p>
+<p>Also for experts, there is an advanced option — RAW — which instructs the<br>
+scanner to return all cells (including delete markers and uncollected deleted<br>
+cells). This option cannot be combined with requesting specific COLUMNS.<br>
+Disabled by default. Example:</p>
+<p><strong>hbase&gt; scan ‘t1’, {RAW =&gt; true, VERSIONS =&gt; 10}</strong></p>
+<p>Besides the default ‘toStringBinary’ format, ‘scan’ supports custom formatting<br>
+by column. A user can define a FORMATTER by adding it to the column name in<br>
+the scan specification. The FORMATTER can be stipulated:</p>
+<p>1. either as a org.apache.hadoop.hbase.util.Bytes method name (e.g, toInt, toString)<br>
+2. or as a custom class followed by method name: e.g. ‘c(MyFormatterClass).format’.</p>
+<p>Example formatting cf:qualifier1 and cf:qualifier2 both as Integers:<br>
+hbase&gt; scan ‘t1’, {COLUMNS =&gt; [‘cf:qualifier1:toInt’,<br>
+‘cf:qualifier2:c(org.apache.hadoop.hbase.util.Bytes).toInt’] }</p>
+<p>Note that you can specify a FORMATTER by column only (cf:qualifer). You cannot<br>
+specify a FORMATTER for all columns of a column family.</p>
+<p>Scan can also be used directly from a table, by first getting a reference to a<br>
+table, like such:</p>
+<p><strong>hbase&gt; t = get_table ‘t’</strong><br>
+<strong> hbase&gt; t.scan</strong></p>
+<p>Note in the above situation, you can still provide all the filtering, columns,<br>
+options, etc as described above.</p></td>
+</tr>
+<tr>
+<td><strong>truncate</strong><strong></strong></td>
+<td>Disables, drops and recreates the specified table.<br>
+Examples:<br>
+<strong>hbase&gt;truncate ‘t1’</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>4) HBase surgery tools</strong></p>
+<table>
+<tbody>
+<tr>
+<td><strong>assign</strong></td>
+<td>Assign a region. Use with caution. If region already assigned,<br>
+this command will do a force reassign. For experts only.<br>
+Examples:<br>
+<strong>hbase&gt; assign ‘REGION_NAME’</strong></td>
+</tr>
+<tr>
+<td><strong>balancer</strong></td>
+<td>Trigger the cluster balancer. Returns true if balancer ran and was able to<br>
+tell the region servers to unassign all the regions to balance (the re-assignment itself is async).<br>
+Otherwise false (Will not run if regions in transition).<br>
+Examples:<br>
+<strong> hbase&gt; balancer</strong></td>
+</tr>
+<tr>
+<td><strong>balance_switch</strong></td>
+<td>Enable/Disable balancer. Returns previous balancer state.<br>
+Examples:<p></p>
+<p><strong>hbase&gt; balance_switch true</strong><br>
+<strong> hbase&gt; balance_switch false</strong></p></td>
+</tr>
+<tr>
+<td><strong>close_region</strong></td>
+<td>Close a single region. Ask the master to close a region out on the cluster<br>
+or if ‘SERVER_NAME’ is supplied, ask the designated hosting regionserver to<br>
+close the region directly. Closing a region, the master expects ‘REGIONNAME’<br>
+to be a fully qualified region name. When asking the hosting regionserver to<br>
+directly close a region, you pass the regions’ encoded name only. A region<br>
+name looks like 
+this:TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396.The
+ trailing period is part of the regionserver name. A region’s encoded 
+name<br>
+is the hash at the end of a region name; e.g. 527db22f95c8a9e0116f0cc13c680396<br>
+(without the period). A ‘SERVER_NAME’ is its host, port plus startcode. For<br>
+example: host187.example.com,60020,1289493121758 (find servername in master ui<br>
+or when you do detailed status in shell). This command will end up running<br>
+close on the region hosting regionserver. The close is done without the<br>
+master’s involvement (It will not know of the close). Once closed, region will<br>
+stay closed. Use assign to reopen/reassign. Use unassign or move to assign<br>
+the region elsewhere on cluster. Use with caution. For experts only.<br>
+Examples:hbase&gt; close_region ‘REGIONNAME’<br>
+<strong> hbase&gt; close_region ‘REGIONNAME’, ‘SERVER_NAME’</strong></td>
+</tr>
+<tr>
+<td><strong>compact</strong></td>
+<td>Compact all regions in passed table or pass a region row<br>
+to compact an individual region. You can also compact a single column<br>
+family within a region.<br>
+Examples:<br>
+Compact all regions in a table:<br>
+<strong>hbase&gt; compact ‘t1’</strong><br>
+Compact an entire region:<br>
+<strong> hbase&gt; compact ‘r1’</strong><br>
+Compact only a column family within a region:<br>
+<strong>hbase&gt; compact ‘r1’, ‘c1’</strong><br>
+Compact a column family within a table:<br>
+<strong>hbase&gt; compact ‘t1’, ‘c1’</strong></td>
+</tr>
+<tr>
+<td><strong>flush</strong></td>
+<td>Flush all regions in passed table or pass a region row to<br>
+flush an individual region. For example:hbase&gt; flush ‘TABLENAME’<br>
+<strong>hbase&gt; flush ‘REGIONNAME’</strong></td>
+</tr>
+<tr>
+<td><strong>major_compact</strong></td>
+<td>Run major compaction on passed table or pass a region row<br>
+to major compact an individual region. To compact a single<br>
+column family within a region specify the region name<br>
+followed by the column family name.<br>
+Examples:<br>
+Compact all regions in a table:<br>
+<strong> hbase&gt; major_compact ‘t1’</strong><br>
+Compact an entire region:<br>
+<strong>hbase&gt; major_compact ‘r1’</strong><br>
+Compact a single column family within a region:<br>
+<strong>hbase&gt; major_compact ‘r1’, ‘c1’</strong><br>
+Compact a single column family within a table:<br>
+<strong>hbase&gt; major_compact ‘t1’, ‘c1’</strong></td>
+</tr>
+<tr>
+<td><strong>move</strong></td>
+<td>Move a region. Optionally specify target regionserver else we choose one<br>
+at random. NOTE: You pass the encoded region name, not the region name so<br>
+this command is a little different to the others. The encoded region name<br>
+is the hash suffix on region names: e.g. if the region name were<br>
+TestTable,0094429456,1289497600452.527db22f95c8a9e0116f0cc13c680396. then<br>
+the encoded region name portion is 527db22f95c8a9e0116f0cc13c680396<br>
+A server name is its host, port plus startcode. For example:<br>
+host187.example.com,60020,1289493121758<br>
+Examples:hbase&gt; move ‘ENCODED_REGIONNAME’<br>
+<strong> hbase&gt; move ‘ENCODED_REGIONNAME’, ‘SERVER_NAME’</strong></td>
+</tr>
+<tr>
+<td><strong>split</strong></td>
+<td>Split entire table or pass a region to split individual region. With the<br>
+second parameter, you can specify an explicit split key for the region.<br>
+Examples:<br>
+<strong>split ‘tableName’</strong><br>
+<strong> split ‘regionName’ # format: ‘tableName,startKey,id’</strong><br>
+<strong> split ‘tableName’, ‘splitKey’</strong><br>
+<strong> split ‘regionName’, ‘splitKey’</strong></td>
+</tr>
+<tr>
+<td><strong>unassign</strong></td>
+<td>Unassign a region. Unassign will close region in current location and then<br>
+reopen it again. Pass ‘true’ to force the unassignment (‘force’ will clear<br>
+all in-memory state in master before the reassign. If results in<br>
+double assignment use hbck -fix to resolve. To be used by experts).<br>
+Use with caution. For expert use only. Examples:hbase&gt; unassign ‘REGIONNAME’<br>
+<strong>hbase&gt; unassign ‘REGIONNAME’, true</strong></td>
+</tr>
+<tr>
+<td><strong>hlog_roll</strong></td>
+<td>Roll the log writer. That is, start writing log messages to a new file.<br>
+The name of the regionserver should be given as the parameter. A<br>
+‘server_name’ is the host, port plus startcode of a regionserver. For<br>
+example: host187.example.com,60020,1289493121758 (find servername in<br>
+master ui or when you do detailed status in shell)<p></p>
+<p><strong>hbase&gt;hlog_roll</strong></p></td>
+</tr>
+<tr>
+<td><strong>zk_dump</strong></td>
+<td>Dump status of HBase cluster as seen by ZooKeeper. Example:<br>
+<strong> hbase&gt;zk_dump</strong></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>5) Cluster replication tools</strong></p>
+<table>
+<tbody>
+<tr>
+<td><strong>add_peer</strong></td>
+<td>Add a peer cluster to replicate to, the id must be a short and<br>
+the cluster key is composed like this:<br>
+hbase.zookeeper.quorum:hbase.zookeeper.property.clientPort:zookeeper.znode.parent<br>
+This gives a full path for HBase to connect to another cluster.<br>
+Examples:hbase&gt; add_peer ‘1’, “server1.cie.com:2181:/hbase”<br>
+<strong> hbase&gt; add_peer ‘2’, “zk1,zk2,zk3:2182:/hbase-prod”</strong></td>
+</tr>
+<tr>
+<td><strong>remove_peer</strong></td>
+<td>Stops the specified replication stream and deletes all the meta<br>
+information kept about it. Examples:<p></p>
+<p><strong>hbase&gt; remove_peer ‘1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>list_peers</strong></td>
+<td>List all replication peer clusters.<br>
+<strong> hbase&gt; list_peers</strong></td>
+</tr>
+<tr>
+<td><strong>enable_peer</strong></td>
+<td>Restarts the replication to the specified peer cluster,<br>
+continuing from where it was disabled.Examples:<p></p>
+<p><strong>hbase&gt; enable_peer ‘1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>disable_peer</strong></td>
+<td>Stops the replication stream to the specified cluster, but still<br>
+keeps track of new edits to replicate.Examples:<p></p>
+<p><strong>hbase&gt; disable_peer ‘1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>start_replication</strong></td>
+<td>Restarts all the replication features. The state in which each<br>
+stream starts in is undetermined.<br>
+WARNING:<br>
+start/stop replication is only meant to be used in critical load situations.<br>
+Examples:<p></p>
+<p><strong>hbase&gt; start_replication</strong></p></td>
+</tr>
+<tr>
+<td><strong>stop_replication</strong><strong></strong></td>
+<td>Stops all the replication features. The state in which each<br>
+stream stops in is undetermined.<br>
+WARNING:<br>
+start/stop replication is only meant to be used in critical load situations.<br>
+Examples:<p></p>
+<p><strong>hbase&gt; stop_replication</strong></p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>6) Security tools</strong></p>
+<table>
+<tbody>
+<tr>
+<td><strong>grant</strong></td>
+<td>Grant users specific rights.<br>
+Syntax : grantpermissions is either zero or more letters from the set “RWXCA”.<br>
+READ(‘R’), WRITE(‘W’), EXEC(‘X’), CREATE(‘C’), ADMIN(‘A’)For example:hbase&gt; grant ‘bobsmith’, ‘RWXCA’<br>
+<strong> hbase&gt; grant ‘bobsmith’, ‘RW’, ‘t1’, ‘f1’, ‘col1’</strong></td>
+</tr>
+<tr>
+<td><strong>revoke</strong></td>
+<td>Revoke a user’s access rights.<br>
+Syntax : revoke<br>
+For example:<p></p>
+<p><strong>hbase&gt; revoke ‘bobsmith’, ‘t1’, ‘f1’, ‘col1’</strong></p></td>
+</tr>
+<tr>
+<td><strong>user_permission</strong></td>
+<td>Show all permissions for the particular user.<br>
+Syntax : user_permission<br>
+For example:hbase&gt; user_permission<br>
+<strong>hbase&gt; user_permission ‘table1’</strong></td>
+</tr>
+</tbody>
+</table>
+		<div class="wpcnt">
+			<div style="display: none ! important;" class="wpa wpmrec">
+				<a class="wpa-about" href="https://wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+				<div class="u">
+					<script type="text/javascript">
+					(function(g){g.__ATA.initAd({sectionId:26942, width:300, height:250});})(window);
+					</script><div id="automattic-id-6624" data-section="26942" style="width:300px; height:250px;"></div>
+				</div>
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li class="share-twitter"><a rel="nofollow" data-shared="sharing-twitter-6" class="share-twitter sd-button share-icon" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-facebook"><a rel="nofollow" data-shared="sharing-facebook-6" class="share-facebook sd-button share-icon" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?share=facebook&amp;nb=1" target="_blank" title="Share on Facebook"><span>Facebook<span class="share-count">4</span></span></a></li><li class="share-end"></li></ul></div></div></div><div class="sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-loaded" id="like-post-wrapper-47775960-6-565fefdac236c" data-src="//widgets.wp.com/likes/#blog_id=47775960&amp;post_id=6&amp;origin=learnhbase.wordpress.com&amp;obj_id=47775960-6-565fefdac236c" data-name="like-post-frame-47775960-6-565fefdac236c"><h3 class="sd-title">Like this:</h3><div class="likes-widget-placeholder post-likes-widget-placeholder" style="height: 55px; display: none;"><span class="button"><span>Like</span></span> <span class="loading">Loading...</span></div><iframe class="post-likes-widget jetpack-likes-widget" name="like-post-frame-47775960-6-565fefdac236c" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a.html" frameborder="0" height="55px" width="100%"></iframe><span class="sd-text-color"></span><a class="sd-link-color"></a></div></div>		
+			</div><!-- .post-content -->
+
+</article><!-- #post-6 -->
+		<nav id="nav-below" class="clear">
+			<span class="nav-previous"><a href="https://learnhbase.wordpress.com/2013/03/01/hbase-introduction/" rel="prev"><span class="meta-nav">←</span> Previous post</a></span>
+			<span class="nav-next"></span>
+		</nav><!-- #nav-below -->
+
+	
+</div><!-- #content -->
+
+<div class="sidebar" role="complementary">
+		<aside id="search-2" class="widget_search widget"><div class="widget-body"><div class="search-form-holder">
+	<form method="get" id="searchform" action="https://learnhbase.wordpress.com/">
+		<fieldset>
+			<input name="s" onfocus="if ( this.value=='Search' ) this.value='';" onblur="if ( this.value=='' ) this.value='Search';" value="Search" type="text">
+			<button type="submit"></button>
+		</fieldset>
+	</form>
+</div><!-- .search-form-holder --></div></aside>		<aside id="recent-posts-2" class="widget_recent_entries widget"><div class="widget-body">		<h1>Recent Posts</h1>		<ul>
+					<li>
+				<a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/">HBase shell commands</a>
+						</li>
+					<li>
+				<a href="https://learnhbase.wordpress.com/2013/03/01/hbase-introduction/">HBase introduction</a>
+						</li>
+				</ul>
+		</div></aside>		<aside id="recent-comments-2" class="widget_recent_comments widget"><div class="widget-body"><h1>Recent Comments</h1>				<table class="recentcommentsavatar" cellpadding="0" cellspacing="0" border="0">
+					<tbody><tr><td title="A binary rowkey in HBase shell | I love green and blue" class="recentcommentsavatartop" style="height:48px; width:48px;"><a href="http://gblue1223.wordpress.com/2014/10/31/a-binary-rowkey-in-hbase-shell/" rel="nofollow"></a></td><td class="recentcommentstexttop" style=""><a href="http://gblue1223.wordpress.com/2014/10/31/a-binary-rowkey-in-hbase-shell/" rel="nofollow">A binary rowkey in H…</a> on <a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/comment-page-1/#comment-78">HBase shell commands</a></td></tr><tr><td title="Johnk120" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-010e881db08f05cbe8194c7894e770d7-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/010e881db08f05cbe8194c7894e770d7.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">Johnk120 on <a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/comment-page-1/#comment-62">HBase shell commands</a></td></tr><tr><td title="HBase tables from Hive | Kevin's Blog" class="recentcommentsavatarend" style="height:48px; width:48px;"><a href="http://kevinwkc.wordpress.com/2014/08/18/hbase-tables-from-hive/" rel="nofollow"></a></td><td class="recentcommentstextend" style=""><a href="http://kevinwkc.wordpress.com/2014/08/18/hbase-tables-from-hive/" rel="nofollow">HBase tables from Hi…</a> on <a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/comment-page-1/#comment-60">HBase shell commands</a></td></tr><tr><td title="Jahid" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-e4408f961d3691d95f3629ae93b13766-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/e4408f961d3691d95f3629ae93b13766_002.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">Jahid on <a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/comment-page-1/#comment-57">HBase shell commands</a></td></tr><tr><td title="Bin" class="recentcommentsavatarend" style="height:48px; width:48px;"><img id="grav-f40b7f420d0423fb2a5dbe0fd5b6bc1a-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/f40b7f420d0423fb2a5dbe0fd5b6bc1a_002.png" class="avatar avatar-48 grav-hashed grav-hijack" height="48" width="48"></td><td class="recentcommentstextend" style="">Bin on <a href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/comment-page-1/#comment-51">HBase shell commands</a></td></tr>				</tbody></table>
+				</div></aside><aside id="archives-2" class="widget_archive widget"><div class="widget-body"><h1>Archives</h1>		<ul>
+			<li><a href="https://learnhbase.wordpress.com/2013/03/">March 2013</a></li>
+		</ul>
+		</div></aside><aside id="categories-2" class="widget_categories widget"><div class="widget-body"><h1>Categories</h1>		<ul>
+	<li class="cat-item cat-item-1"><a href="https://learnhbase.wordpress.com/category/uncategorized/">Uncategorized</a>
+</li>
+		</ul>
+</div></aside><aside id="meta-2" class="widget_meta widget"><div class="widget-body"><h1>Meta</h1>			<ul>
+			<li><a href="https://wordpress.com/start?ref=wplogin">Register</a></li>			<li><a href="https://learnhbase.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="https://learnhbase.wordpress.com/feed/">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="https://learnhbase.wordpress.com/comments/feed/">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>			</ul>
+			</div></aside></div><!-- .sidebar -->
+<div id="comments">
+	
+	
+			<div class="comments-heading clear">
+			<div class="comment-qty">
+				12 comments			</div>
+			<nav id="comment-nav-above">
+				<span class="nav-previous"></span>
+				<span class="nav-next"></span>
+			</nav>
+		</div><!-- .comments-heading -->
+
+		<ol class="commentlist">
+						<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-2">
+				<article id="comment-2" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Vimal said: <span><time pubdate="" datetime="2013-08-16T09:06:58+00:00">August 16, 2013<em>9:06 am</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-6f9fa90da784d51bc92a13f9f2428ef3-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/6f9fa90da784d51bc92a13f9f2428ef3.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Excellent content .. Thanks</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=2#respond" onclick='return addComment.moveForm( "comment-2", "2", "respond", "6" )' aria-label="Reply to Vimal">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-10">
+				<article id="comment-10" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Sarav said: <span><time pubdate="" datetime="2013-12-01T19:12:51+00:00">December 1, 2013<em>7:12 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-11577e7ebe7c76b37f049865205d2c6f-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/11577e7ebe7c76b37f049865205d2c6f.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>excellent COmpilation</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=10#respond" onclick='return addComment.moveForm( "comment-10", "10", "respond", "6" )' aria-label="Reply to Sarav">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="pingback">
+				<div class="comment-meta"> </div>
+				<div class="comment-text">
+					<p>Pingback: <a href="http://www.uroot.com/archives/786" rel="external nofollow" class="url">[转]HBase Shell commands(HBase Shell 命令） -超级用户</a></p>
+				</div>
+				<div class="clear"></div>
+			</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-12">
+				<article id="comment-12" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							faraz said: <span><time pubdate="" datetime="2014-01-13T06:21:59+00:00">January 13, 2014<em>6:21 am</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-9591426a1217488ec1557ecf5a05a0c6-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/9591426a1217488ec1557ecf5a05a0c6.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>USER=”root”<br>
+PASSWORD=”abc1234″<br>
+db=faraz<br>
+table=tree<br>
+mysqldump -u$USER -p$PASSWORD $db $table &gt; /tmp/tablename.sql<br>
+mysql -u$USER -p$PASSWORD $db -e “truncate table $table”</p>
+<p>this script is truncating the single table of a database named as 
+faraz, but i wana truncate multiple tables, what syntax i need to use 
+?????</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=12#respond" onclick='return addComment.moveForm( "comment-12", "12", "respond", "6" )' aria-label="Reply to faraz">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-19">
+				<article id="comment-19" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Pritesh said: <span><time pubdate="" datetime="2014-03-30T11:33:30+00:00">March 30, 2014<em>11:33 am</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-c7356745b2f7ca1507231c6c1be290f6-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/c7356745b2f7ca1507231c6c1be290f6.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>As we had configured HBase 0.94.1 pseudo Distributed mode 
+Hadoop 1.0.3  &amp; It’s working fine but when tried put operation once 
+data is stored into one row with column family.then for next row when we
+ tried to store for next Data it overwrites the previous data. &amp; we 
+have to create new object of put every time for each file which does’t 
+seem Feasible. so we would like to know how to insert record 
+automatically in next row in hbase?</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=19#respond" onclick='return addComment.moveForm( "comment-19", "19", "respond", "6" )' aria-label="Reply to Pritesh">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment byuser comment-author-rajeshhcu32 comment-author-is-site-member bypostauthor even thread-even depth-1 highlander-comment" id="li-comment-20">
+				<article id="comment-20" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							<a href="https://learnhbase.wordpress.com/" rel="external nofollow" class="url">rajeshhcu32</a> said: <span><time pubdate="" datetime="2014-03-30T15:23:55+00:00">March 30, 2014<em>3:23 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-1bb4f3507e659ec6bcf18d4e32e20a16-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/1bb4f3507e659ec6bcf18d4e32e20a16.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Hi Pritesh,  If you want to do puts in bulk, you can prepare 
+list of puts and do put all together. If you feel its difficult just ask
+ the same question at HBase user mailing list(user@hbase.apache.org).<br>
+Thanks.</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=20#respond" onclick='return addComment.moveForm( "comment-20", "20", "respond", "6" )' aria-label="Reply to rajeshhcu32">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-32">
+				<article id="comment-32" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							<a href="http://www.openkb.info/" rel="external nofollow" class="url">OpenKB</a> said: <span><time pubdate="" datetime="2014-05-20T18:06:27+00:00">May 20, 2014<em>6:06 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-d28b6628cf2d8a308205316b7480c567-0" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/d28b6628cf2d8a308205316b7480c567.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Nice reference. I will try to build my tests on all hbase shell commands also.</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=32#respond" onclick='return addComment.moveForm( "comment-32", "32", "respond", "6" )' aria-label="Reply to OpenKB">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-51">
+				<article id="comment-51" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Bin said: <span><time pubdate="" datetime="2014-07-16T19:40:51+00:00">July 16, 2014<em>7:40 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-f40b7f420d0423fb2a5dbe0fd5b6bc1a-1" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/f40b7f420d0423fb2a5dbe0fd5b6bc1a.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Nice post.<br>
+I’m wondering why you specify both the timestamp and versions during get<br>
+ t.get ‘r1′, {COLUMN =&gt; ‘c1′, TIMESTAMP =&gt; ts1, VERSIONS =&gt; 4}<br>
+Since TIMESTAMP has been set to ts1, it is obvious that only (up to) one
+ version can match and so, VERSIONS =&gt; 4 will be useless.<br>
+Instead, use following to get multiple versions of cells back<br>
+ t.get ‘r1′, {COLUMN =&gt; ‘c1′, VERSIONS =&gt; 4}</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=51#respond" onclick='return addComment.moveForm( "comment-51", "51", "respond", "6" )' aria-label="Reply to Bin">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-57">
+				<article id="comment-57" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Jahid said: <span><time pubdate="" datetime="2014-07-22T19:11:35+00:00">July 22, 2014<em>7:11 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-e4408f961d3691d95f3629ae93b13766-1" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/e4408f961d3691d95f3629ae93b13766.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Nice post.Great</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=57#respond" onclick='return addComment.moveForm( "comment-57", "57", "respond", "6" )' aria-label="Reply to Jahid">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="pingback">
+				<div class="comment-meta"> </div>
+				<div class="comment-text">
+					<p>Pingback: <a href="http://kevinwkc.wordpress.com/2014/08/18/hbase-tables-from-hive/" rel="external nofollow" class="url">HBase tables from Hive | Kevin's Blog</a></p>
+				</div>
+				<div class="clear"></div>
+			</li><!-- #comment-## -->
+			<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-62">
+				<article id="comment-62" class="comment">
+					<footer class="comment-meta">
+
+						<div class="comment-author vcard">
+							Johnk120 said: <span><time pubdate="" datetime="2014-09-03T21:00:07+00:00">September 3, 2014<em>9:00 pm</em></time></span>						</div><!-- .comment-author .vcard -->
+
+						<span class="comment-edit"></span>
+
+						
+					</footer>
+
+					<div class="comment-text clear">
+						<div class="comment-avatar">
+							<img id="grav-010e881db08f05cbe8194c7894e770d7-1" alt="" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/010e881db08f05cbe8194c7894e770d7_002.png" class="avatar avatar-60 grav-hashed grav-hijack" height="60" width="60">						</div>
+						<div class="comment-text-body">
+							<p>Hey very cool blog!! Guy.. Beautiful.. Wonderful.. I will 
+bookmark your website and take the feeds additionallyKI am satisfied to 
+search out numerous useful information right here in the publish, we 
+want develop more techniques on this regard, thank you for sharing 
+dcdkdcekgfda</p>
+							<div class="reply">
+								<a rel="nofollow" class="comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/?replytocom=62#respond" onclick='return addComment.moveForm( "comment-62", "62", "respond", "6" )' aria-label="Reply to Johnk120">Reply ↓</a>							</div><!-- .reply -->
+						</div>
+					</div>
+					<div class="clear"></div>
+				</article><!-- #comment-## -->
+			</li><!-- #comment-## -->
+			<li class="pingback">
+				<div class="comment-meta"> </div>
+				<div class="comment-text">
+					<p>Pingback: <a href="http://gblue1223.wordpress.com/2014/10/31/a-binary-rowkey-in-hbase-shell/" rel="external nofollow" class="url">A binary rowkey in HBase shell | I love green and blue</a></p>
+				</div>
+				<div class="clear"></div>
+			</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+	
+					<div id="respond" class="comment-respond js">
+			<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/#respond" style="display:none;">Cancel reply</a></small></h3>				<form action="https://learnhbase.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+					<input id="highlander_comment_nonce" name="highlander_comment_nonce" value="b27cdb857a" type="hidden"><input name="_wp_http_referer" value="/2013/03/02/hbase-shell-commands/" type="hidden">
+<input name="hc_post_as" id="hc_post_as" value="guest" type="hidden">
+
+<div class="comment-form-field comment-textarea">
+	
+	<div id="comment-form-comment"><textarea class="autosizejs " tabindex="-1" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px none; padding: 0px; box-sizing: content-box; word-wrap: break-word; height: 0px ! important; min-height: 0px ! important; overflow: hidden; transition: none 0s ease 0s ; font-family: Arial,Helvetica,Tahoma,Verdana,sans-serif; font-size: 14px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; text-decoration: none; word-spacing: 0px; text-indent: 0px; line-height: 16px; width: 763px;">Enter your comment here...</textarea><textarea style="height: 36px; overflow: hidden; word-wrap: break-word; resize: none;" placeholder="Enter your comment here..." id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div style="display: none;" id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a_002.html" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0" height="24" width="24"></iframe>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/ad516503a11cd5ca435acc9bb6523536.png" alt="Gravatar" class="no-grav" width="25">
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email"></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text"></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text"></div>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/wplogo.png" alt="WordPress.com Logo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" type="hidden">
+				<input name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" type="hidden">
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'wordpress'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/ad516503a11cd5ca435acc9bb6523536.png" alt="Twitter picture" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" type="hidden">
+				<input name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" type="hidden">
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'twitter'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/ad516503a11cd5ca435acc9bb6523536.png" alt="Facebook photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" type="hidden">
+				<input name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" type="hidden">
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'facebook'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/ad516503a11cd5ca435acc9bb6523536.png" alt="Google+ photo" class="no-grav" width="25">
+			</div>
+
+				<div class="comment-form-fields">
+				<input name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" type="hidden">
+				<input name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" type="hidden">
+				<p class="comment-form-posting-as pa-googleplus"><strong></strong> You are commenting using your Google+ account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout(%20'googleplus'%20);">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div style="display: none;" id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6" type="checkbox"> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+
+
+
+<p style="display: none;" class="form-submit"><input name="submit" id="comment-submit" class="submit" value="Post Comment" type="submit"> <input name="comment_post_ID" value="6" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+</p><p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="fdabfb71d7" type="hidden"></p>
+<input name="genseq" value="1449127898" type="hidden">
+<p style="display: none;"></p>				<input id="ak_js" name="ak_js" value="1449128048101" type="hidden"></form>
+					</div><!-- #respond -->
+		<div style="clear: both"></div>
+</div><!-- #comments -->
+	</div><!-- end .middle -->
+</div><!-- end .wrapper -->
+
+<footer class="footer" role="contentinfo">
+	<p><a href="https://wordpress.com/?ref=footer_blog">Blog at WordPress.com</a>. <a href="https://wordpress.com/themes/blogum/" title="Learn more about this theme">The Blogum Theme</a>.</p>
+</footer>
+
+<!-- wpcom_wp_footer -->
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/gprofiles.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/wpgroho.js"></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-010e881db08f05cbe8194c7894e770d7">
+	</div>
+	<div class="grofile-hash-map-e4408f961d3691d95f3629ae93b13766">
+	</div>
+	<div class="grofile-hash-map-f40b7f420d0423fb2a5dbe0fd5b6bc1a">
+	</div>
+	<div class="grofile-hash-map-6f9fa90da784d51bc92a13f9f2428ef3">
+	</div>
+	<div class="grofile-hash-map-11577e7ebe7c76b37f049865205d2c6f">
+	</div>
+	<div class="grofile-hash-map-9591426a1217488ec1557ecf5a05a0c6">
+	</div>
+	<div class="grofile-hash-map-c7356745b2f7ca1507231c6c1be290f6">
+	</div>
+	<div class="grofile-hash-map-1bb4f3507e659ec6bcf18d4e32e20a16">
+	</div>
+	<div class="grofile-hash-map-d28b6628cf2d8a308205316b7480c567">
+	</div>
+	</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/learnhbase.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/learnhbase.wordpress.com\/wp-login.php?action=logout&_wpnonce=3e874690ba","homeURL":"https:\/\/learnhbase.wordpress.com\/","postID":"6","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"0","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a"></script>
+
+	<div style="bottom: -256px;" id="bit" class="loggedout-follow-normal">
+		<a class="bsub" href="javascript:void(0)"><span id="bsub-text">Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow “Learn HBase”</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+			
+			<p><input name="email" placeholder="Enter your email address" id="loggedout-follow-field" type="email"></p>
+
+			<input name="action" value="subscribe" type="hidden">
+			<input name="blog_id" value="47775960" type="hidden">
+			<input name="source" value="https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/" type="hidden">
+			<input name="sub-type" value="loggedout-follow" type="hidden">
+
+			<input id="_wpnonce" name="_wpnonce" value="bd581985f4" type="hidden"><input name="_wp_http_referer" value="/2013/03/02/hbase-shell-commands/" type="hidden">
+			<p id="bsub-subscribe-button"><input value="Sign me up" type="submit"></p>
+			</form>
+					<div id="bsub-credit"><a href="https://wordpress.com/?ref=lof">Build a website with WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"https:\/\/learnhbase.wordpress.com\/2013\/03\/02\/hbase-shell-commands\/":6};
+	</script>
+		<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+			var windowOpen;
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				if ( 'undefined' !== typeof windowOpen ){ // If there's another sharing window open, close it.
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<iframe src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/master.html" scrolling="no" id="likes-master" name="likes-master" style="display:none;"></iframe>
+		<div id="likes-other-gravatars"><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesWidgetBatch = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'
+				} );
+			}
+
+			function JetpackLikesBatchHandler() {
+				var requests = [];
+				jQuery( 'div.jetpack-likes-widget-unloaded' ).each( function( i ) {
+					if ( jetpackLikesWidgetBatch.indexOf( this.id ) > -1 )
+						return;
+					jetpackLikesWidgetBatch.push( this.id );
+					var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)-(\w+)/;
+					var match = regex.exec( this.id );
+					if ( ! match || match.length != 5 )
+						return;
+
+					var info = {
+						blog_id: match[2],
+						width:   this.width
+					};
+
+					if ( 'post' == match[1] ) {
+						info.post_id = match[3];
+					} else if ( 'comment' == match[1] ) {
+						info.comment_id = match[3];
+					}
+
+					info.obj_id = match[4];
+
+					requests.push( info );
+				});
+
+				if ( requests.length > 0 ) {
+					JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+				}
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' ),
+								isRtl: ( 'rtl' == jQuery( '#wpadminbar' ).css( 'direction' ) )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						JetpackLikesBatchHandler();
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id, obj_id: event.obj_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'clickReblogFlair' == event.event ) {
+					wpcom_reblog.toggle_reblog_box_flair( event.obj_id );
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Grab any unloaded widgets for a batch request
+					JetpackLikesBatchHandler();
+
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				if ( 'undefined' === typeof wrapperID ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+				setTimeout( JetpackLikesWidgetQueueHandler, 250 );
+			}
+			JetpackLikesWidgetQueueHandler();
+		//]]>
+		</script>
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JetpackEmojiSettings = {"base_url":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/emoji\/twemoji\/"};
+/* ]]> */
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/a_002"></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "learnhbase.wordpress.com";
+	</script>
+	<script type="text/javascript" src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/725X1342.js"></script><script src="HBase%20shell%20commands%20%7C%20Learn%20HBase_fichiers/w.js" type="text/javascript" async="" defer="defer"></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'47775960','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'47775960','v':'wpcom','tz':'0','user_id':'0','post':'6','subd':'learnhbase'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMkZHfFZwVGpsL1FOZ0pHYkZVbkd2bGQrZW5BWHQyV1MxRENWPWxYeC96PTR5bm1DQ2lpXzdUZHptK01Oc3dKLE04ZmxUSWVSTzZuW3xpTnl+WHowYmFnejktfEN2RkR1c2t+cktdXU1jTVQmM2ZiT350b1phRWJdMFdqc0JRJXhLemM3cHkralB+ZStDeD1zTUk4cFQvTUhNYywudG92fHQ1M2E3M0smaFN0QktCajgvS1t2RUZrWk1Ecy5HX01Tc2tZTEkzb1lGTjdvdD1ucTl8N00zTD0/SWNBaHVYLVMsVjZXb0syaUdQZWczaUZCXzZyS1pPbG5TSmJhcg=='}]);
+_stq.push([ 'clickTrackerInit', '47775960', '6' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+
+
+<style>#content > #center > .dose > .dosesingle,
+#content > #right > .dose > .dosesingle,
+#header + #content > #left > #rlblock_left,
+.wpmrec
+{display:none !important;}</style></body></html>
+<!--
+	generated 149 seconds ago
+	generated in 0.643 seconds
+	served from batcache in 0.004 seconds
+	expires in 151 seconds
+-->

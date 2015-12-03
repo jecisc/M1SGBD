@@ -1,0 +1,39 @@
+#TP HBase
+
+# 1.1
+create 'ferlicotdelbe:repertoire', 'contact', 'coord'
+
+# 1.2
+list
+
+# 1.3
+put 'ferlicotdelbe:repertoire', 'Brad', 'contact:prenom', 'Brad' 
+
+put 'ferlicotdelbe:repertoire', 'Brad', 'contact:nom', 'Pitt' 
+
+put 'ferlicotdelbe:repertoire', 'Brad', 'coord:mail', 'brad.pitt@gmail.com' 
+
+put 'ferlicotdelbe:repertoire', 'Bruce', 'contact:prenom', 'Bruce' 
+
+put 'ferlicotdelbe:repertoire', 'Bruce', 'contact:nom' ,'Springsteen' 
+
+put 'ferlicotdelbe:repertoire', 'Bruce', 'contact:pseudo' ,'The Boss' 
+
+put 'ferlicotdelbe:repertoire', 'Bruce', 'coord:tel' ,'03-26-34-12-56' 
+
+put 'ferlicotdelbe:repertoire', 'Bruce', 'coord:mail' ,'theboss@yahoo.com' 
+
+# 1.4
+get 'ferlicotdelbe:repertoire', 'Bruce'
+
+# 1.5
+put 'ferlicotdelbe:repertoire', 'Brad', 'contact:nom', 'Pitt-Jolie' 
+
+get 'ferlicotdelbe:repertoire', 'Brad'
+
+# 1.6
+scan 'ferlicotdelbe:repertoire'
+
+#1.7
+disable 'ferlicotdelbe:repertoire'
+drop 'ferlicotdelbe:repertoire'

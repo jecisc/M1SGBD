@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="conf">
+    <CLASSES>
+      <root url="file:///opt/hbase-1.1.2/conf" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
