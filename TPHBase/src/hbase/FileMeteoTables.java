@@ -57,11 +57,15 @@ public class FileMeteoTables {
             Put put = new Put(Bytes.toBytes(ligneDecoupee[0] + ligneDecoupee[1]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("number_station"), Bytes.toBytes(ligneDecoupee[0]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("date"), Bytes.toBytes(ligneDecoupee[1]));
+            put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("t"), Bytes.toBytes(ligneDecoupee[7]));
+            put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("td"), Bytes.toBytes(ligneDecoupee[8]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tn12"), Bytes.toBytes(ligneDecoupee[24]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tn24"), Bytes.toBytes(ligneDecoupee[25]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tx12"), Bytes.toBytes(ligneDecoupee[26]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tx24"), Bytes.toBytes(ligneDecoupee[27]));
             put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tminsol"), Bytes.toBytes(ligneDecoupee[28]));
+            put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("sw"), Bytes.toBytes(ligneDecoupee[29]));
+            put.addColumn(Bytes.toBytes("donnee"), Bytes.toBytes("tw"), Bytes.toBytes(ligneDecoupee[30]));
             donnees.put(put);
         }
         System.out.println("Donnees inserted");
