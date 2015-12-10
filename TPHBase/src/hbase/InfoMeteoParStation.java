@@ -2,6 +2,7 @@ package hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -21,12 +22,16 @@ import java.io.IOException;
 public class InfoMeteoParStation {
 
     public class MinCountTableMapper extends TableMapper<IntWritable, DoubleWritable> {
-        public void map(ImmutableBytesWritable row, Result value, Context context) throws InterruptedException, IOException {
-            IntWritable key = new IntWritable(java.nio.ByteBuffer.wrap(value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("id"))).getInt());
-            DoubleWritable val = new DoubleWritable(java.nio.ByteBuffer.wrap(value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("tx24"))).getDouble());
 
-            if (key != null && value != null) {
-                context.write(key, val);
+        public void map(ImmutableBytesWritable row, Result value, Context context) throws InterruptedException, IOException {
+            byte[] bytes =value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("tx24"));
+            if(bytes.toString() != "mq") {
+                IntWritable key = new IntWritable(java.nio.ByteBuffer.wrap(value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("id"))).getInt());
+                DoubleWritable val = new DoubleWritable(java.nio.ByteBuffer.wrap(bytes).getDouble());
+
+                if (key != null && value != null) {
+                    context.write(key, val);
+                }
             }
         }
 
@@ -40,7 +45,7 @@ public class InfoMeteoParStation {
 
             // on crée un objet instance de Put
             // et on l'utilise pour écrire le résultat dans la table des stations
-
+            Put put = new Put();
             context.write(null, put);
         }
     }
