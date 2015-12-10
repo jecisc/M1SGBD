@@ -1,5 +1,6 @@
 package hbase;
 
+import com.kenai.jaffl.struct.Struct;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Put;
@@ -21,11 +22,11 @@ import java.io.IOException;
  */
 public class InfoMeteoParStation {
 
-    public class MinCountTableMapper extends TableMapper<IntWritable, DoubleWritable> {
+    public static class MinCountTableMapper extends TableMapper<IntWritable, DoubleWritable> {
 
         public void map(ImmutableBytesWritable row, Result value, Context context) throws InterruptedException, IOException {
             byte[] bytes =value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("tx24"));
-            if(bytes.toString() != "mq") {
+            if(!bytes.toString().equals("mq")) {
                 IntWritable key = new IntWritable(java.nio.ByteBuffer.wrap(value.getValue(Bytes.toBytes("donnee"), Bytes.toBytes("id"))).getInt());
                 DoubleWritable val = new DoubleWritable(java.nio.ByteBuffer.wrap(bytes).getDouble());
 
@@ -37,15 +38,16 @@ public class InfoMeteoParStation {
 
     }
 
-    public class MinCountTableReducer extends TableReducer<IntWritable, Iterable<DoubleWritable>, ImmutableBytesWritable> {
+    public static class MinCountTableReducer extends TableReducer<IntWritable, Iterable<DoubleWritable>, ImmutableBytesWritable> {
 
         public void reduce(IntWritable key, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
-            DoubleWritable result = new DoubleWritable();
-            // on parcourt la liste des valeurs (paramètre values) pour trouver la plus petite temerature
+            double min = 10000;
+            for (DoubleWritable d : values) {
+                min = Double.min(min, d.get());
+            }
 
-            // on crée un objet instance de Put
-            // et on l'utilise pour écrire le résultat dans la table des stations
-            Put put = new Put();
+            Put put = new Put(Bytes.toBytes(key.toString()));
+            put.addColumn(Bytes.toBytes("station"), Bytes.toBytes("temp_min"), Bytes.toBytes(((Double) min).toString()));
             context.write(null, put);
         }
     }
